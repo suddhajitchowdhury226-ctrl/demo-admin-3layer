@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/three_layer_admin_panel.html" }
+  ]
+}
