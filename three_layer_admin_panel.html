@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpsHub — Admin Panel</title>
+  <meta name="description" content="OpsHub multi-department admin portal for Administration, Sales, and HR teams." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <meta name="theme-color" content="#0f1117" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="OpsHub Admin Panel" />
+  <meta property="og:description" content="Multi-department admin portal" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+
+      /* Surfaces */
+      --surface-0: #0f1117;
+      --surface-1: #161b27;
+      --surface-2: #1e2537;
+      --surface-3: #252d40;
+
+      /* Borders */
+      --border: rgba(255, 255, 255, 0.07);
+      --border-strong: rgba(255, 255, 255, 0.13);
+      --border-accent: #4f7cff;
+
+      /* Text */
+      --text-primary: #e8ecf4;
+      --text-secondary: #9ba3b8;
+      --text-muted: #5c6680;
+      --text-danger: #ff6b6b;
+      --text-success: #3dd68c;
+      --text-warning: #fbbf24;
+      --text-accent: #7fa8ff;
+      --text-pro: #c77dff;
+
+      /* Fills */
+      --fill-accent: #4f7cff;
+      --fill-accent-hover: #3d6aee;
+      --fill-danger: #e53e3e;
+      --fill-success: #1a7a4a;
+
+      /* Backgrounds (semi-transparent tints) */
+      --bg-accent: rgba(79, 124, 255, 0.15);
+      --bg-success: rgba(61, 214, 140, 0.12);
+      --bg-danger: rgba(229, 62, 62, 0.12);
+      --bg-warning: rgba(251, 191, 36, 0.12);
+      --bg-pro: rgba(199, 125, 255, 0.12);
+
+      /* On-color text */
+      --on-accent: #ffffff;
+      --on-danger: #ffffff;
+
+      /* Sidebar width */
+      --sidebar-w: 240px;
+
+      /* Gradients */
+      --grad-accent: linear-gradient(135deg, #4f7cff 0%, #7c5cfc 100%);
+      --grad-success: linear-gradient(135deg, #3dd68c 0%, #20b2aa 100%);
+      --grad-danger: linear-gradient(135deg, #ff6b6b 0%, #ee0979 100%);
+      --grad-warning: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+    }
+  </style>
+  <style>
+    /* ── Reset & base ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 14px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--surface-0);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-strong);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ── Form elements ── */
+    input,
+    select {
+      background: var(--surface-3);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      padding: 9px 12px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.18);
+    }
+
+    input::placeholder {
+      color: var(--text-muted);
+    }
+
+    select option {
+      background: var(--surface-2);
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: var(--grad-accent);
+      color: var(--on-accent);
+      box-shadow: 0 2px 12px rgba(79, 124, 255, 0.35);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 4px 18px rgba(79, 124, 255, 0.45);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface-3);
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-danger {
+      background: var(--bg-danger);
+      border: 1px solid rgba(229, 62, 62, 0.3);
+      color: var(--text-danger);
+    }
+
+    .btn-danger:hover {
+      background: var(--fill-danger);
+      color: #fff;
+    }
+
+    .btn-sm {
+      font-size: 11px;
+      padding: 5px 12px;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-admin {
+      background: var(--bg-pro);
+      color: var(--text-pro);
+      border: 1px solid rgba(199, 125, 255, 0.2);
+    }
+
+    .badge-sales {
+      background: var(--bg-accent);
+      color: var(--text-accent);
+      border: 1px solid rgba(79, 124, 255, 0.2);
+    }
+
+    .badge-hr {
+      background: var(--bg-success);
+      color: var(--text-success);
+      border: 1px solid rgba(61, 214, 140, 0.2);
+    }
+
+    .badge-warning {
+      background: var(--bg-warning);
+      color: var(--text-warning);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      z-index: 9999;
+      animation: toastIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-width: 220px;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(-14px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .toast-success {
+      border-left: 3px solid var(--fill-success);
+    }
+
+    .toast-error {
+      border-left: 3px solid var(--fill-danger);
+    }
+  </style>
+  <style>
+    /* ── Login screen ── */
+    .login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 60% 30%, rgba(79, 124, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(124, 92, 252, 0.06) 0%, transparent 50%),
+        var(--surface-0);
+    }
+
+    .login-box {
+      width: 360px;
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .login-logo-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--grad-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 24px rgba(79, 124, 255, 0.4);
+    }
+
+    .login-logo-icon i {
+      font-size: 26px;
+      color: #fff;
+    }
+
+    .login-logo h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
+
+    .login-logo p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .login-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .login-hint {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      margin-top: 18px;
+      line-height: 1.8;
+    }
+
+    code.chip {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 11px;
+      color: var(--text-accent);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Sidebar ── */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--surface-1);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      padding: 22px 20px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .sidebar-logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--grad-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(79, 124, 255, 0.3);
+    }
+
+    .sidebar-logo-icon i {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .sidebar-logo-text h2 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .sidebar-logo-text span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .nav-section {
+      padding: 16px 16px 5px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-item {
+      align-items: center;
+      border-radius: 8px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      font-size: 13px;
+      font-weight: 500;
+      gap: 10px;
+      margin: 2px 10px;
+      padding: 9px 12px;
+      transition: all 0.12s;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: var(--surface-3);
+      color: var(--text-primary);
+    }
+
+    .nav-item.active {
+      background: var(--bg-accent);
+      color: var(--text-accent);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 60%;
+      background: var(--fill-accent);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .nav-item i {
+      font-size: 17px;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+      padding: 14px;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 8px;
+      border-radius: var(--radius);
+      background: var(--surface-2);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--grad-accent);
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Main area ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .topbar {
+      align-items: center;
+      background: var(--surface-1);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      padding: 14px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-id {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px;
+      background: var(--surface-0);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+      animation: fadeUp 0.2s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <style>
+    /* ── Cards & Stats ── */
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 22px 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .stat-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .stat-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .stat-icon i {
+      font-size: 18px;
+    }
+
+    .stat-icon-blue {
+      background: var(--bg-accent);
+    }
+
+    .stat-icon-blue i {
+      color: var(--text-accent);
+    }
+
+    .stat-icon-green {
+      background: var(--bg-success);
+    }
+
+    .stat-icon-green i {
+      color: var(--text-success);
+    }
+
+    .stat-icon-yellow {
+      background: var(--bg-warning);
+    }
+
+    .stat-icon-yellow i {
+      color: var(--text-warning);
+    }
+
+    .stat-icon-red {
+      background: var(--bg-danger);
+    }
+
+    .stat-icon-red i {
+      color: var(--text-danger);
+    }
+
+    .stat-icon-purple {
+      background: var(--bg-pro);
+    }
+
+    .stat-icon-purple i {
+      color: var(--text-pro);
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .stat-change {
+      font-size: 11px;
+      color: var(--text-success);
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .stat-change.down {
+      color: var(--text-danger);
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: var(--surface-2);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-align: left;
+      padding: 10px 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    th:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    th:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: background 0.1s;
+    }
+
+    tbody tr:hover td {
+      background: var(--surface-2);
+    }
+
+    /* ── Modal ── */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.15s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal {
+      background: var(--surface-1);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      width: 380px;
+      max-width: 92vw;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+      animation: modalIn 0.2s cubic-bezier(0.34, 1.26, 0.64, 1);
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.93) translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--text-primary);
+    }
+
+    .modal-title i {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--bg-accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-accent);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+
+    /* ── Form groups ── */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      color: var(--text-secondary);
+      display: block;
+      font-size: 12px;
+      margin-bottom: 6px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    /* ── Login error ── */
+    .login-err {
+      background: var(--bg-danger);
+      border: 1px solid rgba(229, 62, 62, 0.25);
+      border-radius: var(--radius);
+      color: var(--text-danger);
+      font-size: 12.5px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* ── Code chips ── */
+    .id-chip {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      color: var(--text-accent);
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      margin-bottom: 22px;
+    }
+
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 18px 0;
+    }
+
+    /* ── Settings ── */
+    .settings-card {
+      max-width: 520px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════════════════════ -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="login-logo-icon"><i class="ti ti-building-skyscraper"></i></div>
+        <h1>OpsHub Admin</h1>
+        <p>Sign in to your department portal</p>
+      </div>
+      <div class="login-card">
+        <div class="form-group">
+          <label>Department ID</label>
+          <input id="loginId" placeholder="e.g. ADMIN-001 or HR-042" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="loginPass" type="password" placeholder="Enter your password" autocomplete="current-password" />
+        </div>
+        <div id="loginErr" class="login-err hidden">
+          <i class="ti ti-alert-triangle"></i> Invalid credentials — please try again.
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:14px;padding:11px"
+          onclick="doLogin()">
+          <i class="ti ti-login"></i> Sign in
+        </button>
+      </div>
+      <div class="login-hint">
+        Demo accounts — try: <code class="chip">ADMIN-001</code> / <code class="chip">admin123</code><br />
+        <code class="chip">SALES-007</code> / <code class="chip">sales123</code> &nbsp;|&nbsp;
+        <code class="chip">HR-020</code> / <code class="chip">hr123</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+     MAIN APP SHELL
+════════════════════════════════════════════════════════════════ -->
+  <div id="mainApp" class="app-shell hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon"><i class="ti ti-building-skyscraper"></i></div>
+        <div class="sidebar-logo-text">
+          <h2>OpsHub</h2>
+          <span id="roleLabel">—</span>
+        </div>
+      </div>
+
+      <!-- Admin nav -->
+      <nav id="navAdmin" class="hidden">
+        <div class="nav-section">Overview</div>
+        <div class="nav-item active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i>
+          Dashboard</div>
+        <div class="nav-section">Management</div>
+        <div class="nav-item" onclick="showPage('departments',this)"><i class="ti ti-building-community"></i>
+          Departments</div>
+        <div class="nav-item" onclick="showPage('users',this)"><i class="ti ti-users"></i> All users</div>
+        <div class="nav-item" onclick="showPage('ids',this)"><i class="ti ti-id-badge"></i> ID management</div>
+        <div class="nav-section">System</div>
+        <div class="nav-item" onclick="showPage('settings',this)"><i class="ti ti-settings"></i> Settings</div>
+        <div class="nav-item" onclick="showPage('logs',this)"><i class="ti ti-file-text"></i> Audit logs</div>
+      </nav>
+
+      <!-- Sales nav -->
+      <nav id="navSales" class="hidden">
+        <div class="nav-section">Sales</div>
+        <div class="nav-item active" onclick="showPage('salesDash',this)"><i class="ti ti-chart-bar"></i> Dashboard
+        </div>
+        <div class="nav-item" onclick="showPage('products',this)"><i class="ti ti-package"></i> Products</div>
+        <div class="nav-item" onclick="showPage('salesOrders',this)"><i class="ti ti-receipt"></i> Orders</div>
+        <div class="nav-item" onclick="showPage('salesReports',this)"><i class="ti ti-report-analytics"></i> Reports
+        </div>
+      </nav>
+
+      <!-- HR nav -->
+      <nav id="navHR" class="hidden">
+        <div class="nav-section">HR</div>
+        <div class="nav-item active" onclick="showPage('hrDash',this)"><i class="ti ti-heart-rate-monitor"></i> Overview
+        </div>
+        <div class="nav-item" onclick="showPage('employees',this)"><i class="ti ti-users"></i> Employees</div>
+        <div class="nav-item" onclick="showPage('attendance',this)"><i class="ti ti-calendar-check"></i> Attendance
+        </div>
+        <div class="nav-item" onclick="showPage('hrReports',this)"><i class="ti ti-report"></i> Reports</div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini">
+          <div id="userAvatar" class="user-avatar">--</div>
+          <div style="min-width:0">
+            <p id="userNameSide"
+              style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</p>
+            <p id="userRoleSide" style="font-size:11px;color:var(--text-muted)">—</p>
+          </div>
+        </div>
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;font-size:12px" onclick="logout()">
+          <i class="ti ti-logout" style="font-size:15px"></i> Sign out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <span id="pageTitle" class="topbar-title">Dashboard</span>
+        </div>
+        <div class="topbar-right">
+          <span id="topBadge" class="badge">—</span>
+          <span id="topId" class="topbar-id">—</span>
+        </div>
+      </header>
+
+      <main class="content">
+
+        <!-- ╔═══════════════════════════════╗
+           ║   ADMIN PAGES                 ║
+           ╚═══════════════════════════════╝ -->
+
+        <!-- Dashboard -->
+        <div id="pageDashboard" class="page active">
+          <div class="section-header">
+            <h2>Dashboard</h2>
+            <p>Welcome back — here's what's happening today.</p>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue"><i class="ti ti-building-community"></i></div>
+              <div class="stat-label">Total departments</div>
+              <div class="stat-value">4</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> All active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-purple"><i class="ti ti-id-badge"></i></div>
+              <div class="stat-label">Active IDs</div>
+              <div class="stat-value">38</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> +2 this week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-green"><i class="ti ti-users"></i></div>
+              <div class="stat-label">Total employees</div>
+              <div class="stat-value">124</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> +5 this month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-red"><i class="ti ti-alert-circle"></i></div>
+              <div class="stat-label">System alerts</div>
+              <div class="stat-value" style="color:var(--text-danger)">2</div>
+              <div class="stat-change down"><i class="ti ti-alert-triangle"></i> Requires attention</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Recent activity</div>
+                <div class="card-subtitle">Latest actions across all departments</div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Department</th>
+                    <th>User</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>New ID created</td>
+                    <td><span class="badge badge-sales">Sales</span></td>
+                    <td><span class="id-chip">SALES-012</span></td>
+                    <td style="color:var(--text-muted)">2 min ago</td>
+                  </tr>
+                  <tr>
+                    <td>Login successful</td>
+                    <td><span class="badge badge-hr">HR</span></td>
+                    <td><span class="id-chip">HR-020</span></td>
+                    <td style="color:var(--text-muted)">8 min ago</td>
+                  </tr>
+                  <tr>
+                    <td>Password reset</td>
+                    <td><span class="badge badge-admin">Admin</span></td>
+                    <td><span class="id-chip">ADMIN-001</span></td>
+                    <td style="color:var(--text-muted)">1 hr ago</td>
+                  </tr>
+                  <tr>
+                    <td>Report exported</td>
+                    <td><span class="badge badge-sales">Sales</span></td>
+                    <td><span class="id-chip">SALES-007</span></td>
+                    <td style="color:var(--text-muted)">3 hr ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Departments -->
+        <div id="pageDepartments" class="page">
+          <div class="section-header">
+            <h2>Departments</h2>
+            <p>Manage all organizational departments and access levels.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">All departments</div>
+              <button class="btn btn-primary btn-sm" onclick="showModal('deptModal')"><i class="ti ti-plus"></i> Add
+                department</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Members</th>
+                    <th>Access level</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Administration</strong></td>
+                    <td><span class="id-chip">ADMIN</span></td>
+                    <td>3</td>
+                    <td>Full access</td>
+                    <td><span class="badge badge-admin">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sales team</strong></td>
+                    <td><span class="id-chip">SALES</span></td>
+                    <td>15</td>
+                    <td>Products &amp; orders</td>
+                    <td><span class="badge badge-sales">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Human resources</strong></td>
+                    <td><span class="id-chip">HR</span></td>
+                    <td>8</td>
+                    <td>Employee monitoring</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Operations</strong></td>
+                    <td><span class="id-chip">OPS</span></td>
+                    <td>12</td>
+                    <td>Inventory</td>
+                    <td><span class="badge badge-warning">Limited</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users -->
+        <div id="pageUsers" class="page">
+          <div class="section-header">
+            <h2>All users</h2>
+            <p>View and manage users across all departments.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">User directory</div>
+              <button class="btn btn-primary btn-sm" onclick="showModal('userModal')"><i class="ti ti-plus"></i> Add
+                user</button>
+            </div>
+            <div class="table-wrap">
+              <table id="usersTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="usersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ID Management -->
+        <div id="pageIds" class="page">
+          <div class="section-header">
+            <h2>ID management</h2>
+            <p>Generate, assign, and revoke department access IDs.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">All IDs</div>
+              <button class="btn btn-primary btn-sm" onclick="showModal('idModal')"><i class="ti ti-plus"></i> Generate
+                ID</button>
+            </div>
+            <div class="table-wrap">
+              <table id="idsTable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Assigned to</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="idsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div id="pageSettings" class="page">
+          <div class="section-header">
+            <h2>Settings</h2>
+            <p>Configure system-wide preferences and policies.</p>
+          </div>
+          <div class="card settings-card">
+            <div class="card-title" style="margin-bottom:20px">System configuration</div>
+            <div class="form-group"><label>System name</label><input value="OpsHub Admin" /></div>
+            <div class="form-group"><label>Session timeout (minutes)</label><input type="number" value="30" /></div>
+            <div class="form-group"><label>Default role</label>
+              <select>
+                <option>Sales team</option>
+                <option>HR</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Password policy</label>
+              <select>
+                <option>Strong (8+ chars, mixed)</option>
+                <option>Medium (6+ chars)</option>
+              </select>
+            </div>
+            <hr class="divider" />
+            <button class="btn btn-primary" onclick="showToast('Settings saved')"><i class="ti ti-device-floppy"></i>
+              Save changes</button>
+          </div>
+        </div>
+
+        <!-- Audit logs -->
+        <div id="pageLogs" class="page">
+          <div class="section-header">
+            <h2>Audit logs</h2>
+            <p>Complete record of all system events and actions.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">System events</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Actor</th>
+                    <th>IP address</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Login</td>
+                    <td><span class="id-chip">ADMIN-001</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.10</td>
+                    <td style="color:var(--text-muted)">2026-07-17 09:01</td>
+                  </tr>
+                  <tr>
+                    <td>ID created: SALES-012</td>
+                    <td><span class="id-chip">ADMIN-001</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.10</td>
+                    <td style="color:var(--text-muted)">2026-07-17 09:03</td>
+                  </tr>
+                  <tr>
+                    <td>Login</td>
+                    <td><span class="id-chip">HR-020</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.22</td>
+                    <td style="color:var(--text-muted)">2026-07-17 09:08</td>
+                  </tr>
+                  <tr>
+                    <td>Report viewed</td>
+                    <td><span class="id-chip">HR-020</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.22</td>
+                    <td style="color:var(--text-muted)">2026-07-17 09:15</td>
+                  </tr>
+                  <tr>
+                    <td>Login</td>
+                    <td><span class="id-chip">SALES-007</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.35</td>
+                    <td style="color:var(--text-muted)">2026-07-17 08:45</td>
+                  </tr>
+                  <tr>
+                    <td>Order #4421 updated</td>
+                    <td><span class="id-chip">SALES-007</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.35</td>
+                    <td style="color:var(--text-muted)">2026-07-17 08:47</td>
+                  </tr>
+                  <tr>
+                    <td>Password reset</td>
+                    <td><span class="id-chip">ADMIN-001</span></td>
+                    <td style="color:var(--text-muted);font-family:monospace">192.168.1.10</td>
+                    <td style="color:var(--text-muted)">2026-07-17 08:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ╔═══════════════════════════════╗
+           ║   SALES PAGES                 ║
+           ╚═══════════════════════════════╝ -->
+
+        <!-- Sales Dashboard -->
+        <div id="pageSalesDash" class="page">
+          <div class="section-header">
+            <h2>Sales dashboard</h2>
+            <p>Your team's performance at a glance.</p>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-green"><i class="ti ti-currency-dollar"></i></div>
+              <div class="stat-label">Monthly revenue</div>
+              <div class="stat-value" style="color:var(--text-success)">$84,210</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> +12% vs last month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue"><i class="ti ti-receipt"></i></div>
+              <div class="stat-label">Orders this month</div>
+              <div class="stat-value">312</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> +28 this week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-purple"><i class="ti ti-package"></i></div>
+              <div class="stat-label">Active products</div>
+              <div class="stat-value">47</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> 4 new listings</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-yellow"><i class="ti ti-percentage"></i></div>
+              <div class="stat-label">Conversion rate</div>
+              <div class="stat-value">6.4%</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> +0.8% this week</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Recent orders</div>
+                <div class="card-subtitle">Latest transactions from your pipeline</div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order</th>
+                    <th>Product</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="id-chip">#4421</span></td>
+                    <td>Enterprise Suite</td>
+                    <td style="color:var(--text-success);font-weight:600">$4,200</td>
+                    <td><span class="badge badge-hr">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="id-chip">#4420</span></td>
+                    <td>Pro Plan ×5</td>
+                    <td style="color:var(--text-success);font-weight:600">$1,750</td>
+                    <td><span class="badge badge-sales">Processing</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="id-chip">#4419</span></td>
+                    <td>Basic Plan ×12</td>
+                    <td style="color:var(--text-success);font-weight:600">$960</td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div id="pageProducts" class="page">
+          <div class="section-header">
+            <h2>Product catalog</h2>
+            <p>All available products and subscription plans.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Catalog</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>SKU</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Enterprise Suite</strong></td>
+                    <td><span class="id-chip">ENT-001</span></td>
+                    <td style="color:var(--text-success);font-weight:600">$4,200/yr</td>
+                    <td>—</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Pro Plan</strong></td>
+                    <td><span class="id-chip">PRO-001</span></td>
+                    <td style="color:var(--text-success);font-weight:600">$350/mo</td>
+                    <td>—</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Basic Plan</strong></td>
+                    <td><span class="id-chip">BSC-001</span></td>
+                    <td style="color:var(--text-success);font-weight:600">$80/mo</td>
+                    <td>—</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Add-on: Analytics</strong></td>
+                    <td><span class="id-chip">ADD-ANA</span></td>
+                    <td style="color:var(--text-success);font-weight:600">$120/mo</td>
+                    <td>—</td>
+                    <td><span class="badge badge-warning">Beta</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders -->
+        <div id="pageSalesOrders" class="page">
+          <div class="section-header">
+            <h2>Orders</h2>
+            <p>Full history of all customer orders.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">All orders</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order</th>
+                    <th>Client</th>
+                    <th>Product</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="id-chip">#4421</span></td>
+                    <td>Acme Corp</td>
+                    <td>Enterprise Suite</td>
+                    <td style="color:var(--text-success);font-weight:600">$4,200</td>
+                    <td style="color:var(--text-muted)">Jul 17</td>
+                    <td><span class="badge badge-hr">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="id-chip">#4420</span></td>
+                    <td>Beta LLC</td>
+                    <td>Pro Plan ×5</td>
+                    <td style="color:var(--text-success);font-weight:600">$1,750</td>
+                    <td style="color:var(--text-muted)">Jul 17</td>
+                    <td><span class="badge badge-sales">Processing</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="id-chip">#4419</span></td>
+                    <td>Gamma Inc</td>
+                    <td>Basic ×12</td>
+                    <td style="color:var(--text-success);font-weight:600">$960</td>
+                    <td style="color:var(--text-muted)">Jul 16</td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="id-chip">#4418</span></td>
+                    <td>Delta Co</td>
+                    <td>Analytics Add-on</td>
+                    <td style="color:var(--text-success);font-weight:600">$120</td>
+                    <td style="color:var(--text-muted)">Jul 15</td>
+                    <td><span class="badge badge-hr">Completed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Reports -->
+        <div id="pageSalesReports" class="page">
+          <div class="section-header">
+            <h2>Reports</h2>
+            <p>Generate and export sales analytics.</p>
+          </div>
+          <div class="card settings-card">
+            <div class="card-title" style="margin-bottom:20px">Generate report</div>
+            <div class="form-group"><label>Report type</label>
+              <select>
+                <option>Revenue summary</option>
+                <option>Product performance</option>
+                <option>Order history</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>From</label><input type="date" value="2026-07-01" /></div>
+              <div class="form-group"><label>To</label><input type="date" value="2026-07-17" /></div>
+            </div>
+            <button class="btn btn-primary" onclick="showToast('Report generated')"><i class="ti ti-file-download"></i>
+              Generate report</button>
+          </div>
+        </div>
+
+        <!-- ╔═══════════════════════════════╗
+           ║   HR PAGES                    ║
+           ╚═══════════════════════════════╝ -->
+
+        <!-- HR Dashboard -->
+        <div id="pageHrDash" class="page">
+          <div class="section-header">
+            <h2>HR overview</h2>
+            <p>Workforce snapshot for today.</p>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue"><i class="ti ti-users"></i></div>
+              <div class="stat-label">Total employees</div>
+              <div class="stat-value">124</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> +5 this month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-green"><i class="ti ti-user-check"></i></div>
+              <div class="stat-label">Present today</div>
+              <div class="stat-value" style="color:var(--text-success)">110</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> 89% attendance</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-yellow"><i class="ti ti-calendar-off"></i></div>
+              <div class="stat-label">On leave</div>
+              <div class="stat-value" style="color:var(--text-warning)">9</div>
+              <div class="stat-change"><i class="ti ti-info-circle"></i> 3 approved today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-purple"><i class="ti ti-user-plus"></i></div>
+              <div class="stat-label">New hires (Jul)</div>
+              <div class="stat-value">5</div>
+              <div class="stat-change"><i class="ti ti-trending-up"></i> On track</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Attendance overview</div>
+                <div class="card-subtitle">Department-level breakdown for today</div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Total</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Sales</strong></td>
+                    <td>15</td>
+                    <td style="color:var(--text-success)">13</td>
+                    <td style="color:var(--text-danger)">2</td>
+                    <td><span class="badge badge-warning">87%</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>HR</strong></td>
+                    <td>8</td>
+                    <td style="color:var(--text-success)">8</td>
+                    <td>0</td>
+                    <td><span class="badge badge-hr">100%</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Operations</strong></td>
+                    <td>12</td>
+                    <td style="color:var(--text-success)">10</td>
+                    <td style="color:var(--text-danger)">2</td>
+                    <td><span class="badge badge-warning">83%</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Engineering</strong></td>
+                    <td>22</td>
+                    <td style="color:var(--text-success)">19</td>
+                    <td style="color:var(--text-danger)">3</td>
+                    <td><span class="badge badge-warning">86%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employees -->
+        <div id="pageEmployees" class="page">
+          <div class="section-header">
+            <h2>Employees</h2>
+            <p>Complete employee directory.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Employee directory</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Aryan Mehta</strong></td>
+                    <td><span class="id-chip">EMP-1001</span></td>
+                    <td>Sales</td>
+                    <td>Account exec</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Priya Nair</strong></td>
+                    <td><span class="id-chip">EMP-1002</span></td>
+                    <td>HR</td>
+                    <td>HR specialist</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rahul Sinha</strong></td>
+                    <td><span class="id-chip">EMP-1003</span></td>
+                    <td>Operations</td>
+                    <td>Ops lead</td>
+                    <td><span class="badge badge-hr">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sneha Iyer</strong></td>
+                    <td><span class="id-chip">EMP-1004</span></td>
+                    <td>Sales</td>
+                    <td>Sales rep</td>
+                    <td><span class="badge badge-warning">On leave</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance log -->
+        <div id="pageAttendance" class="page">
+          <div class="section-header">
+            <h2>Attendance</h2>
+            <p>Daily check-in / check-out log for July 2026.</p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Attendance log</div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Aryan Mehta</strong></td>
+                    <td style="color:var(--text-muted)">Jul 17</td>
+                    <td style="color:var(--text-success)">09:02</td>
+                    <td style="color:var(--text-muted)">18:10</td>
+                    <td><span class="badge badge-hr">Present</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Priya Nair</strong></td>
+                    <td style="color:var(--text-muted)">Jul 17</td>
+                    <td style="color:var(--text-success)">08:55</td>
+                    <td style="color:var(--text-muted)">17:58</td>
+                    <td><span class="badge badge-hr">Present</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sneha Iyer</strong></td>
+                    <td style="color:var(--text-muted)">Jul 17</td>
+                    <td style="color:var(--text-muted)">—</td>
+                    <td style="color:var(--text-muted)">—</td>
+                    <td><span class="badge badge-warning">Absent</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rahul Sinha</strong></td>
+                    <td style="color:var(--text-muted)">Jul 17</td>
+                    <td style="color:var(--text-success)">09:30</td>
+                    <td style="color:var(--text-muted)">18:05</td>
+                    <td><span class="badge badge-hr">Present</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- HR Reports -->
+        <div id="pageHrReports" class="page">
+          <div class="section-header">
+            <h2>HR reports</h2>
+            <p>Generate workforce analytics and attendance summaries.</p>
+          </div>
+          <div class="card settings-card">
+            <div class="card-title" style="margin-bottom:20px">HR report builder</div>
+            <div class="form-group"><label>Report type</label>
+              <select>
+                <option>Attendance summary</option>
+                <option>Employee headcount</option>
+                <option>Leave analysis</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Department</label>
+              <select>
+                <option>All</option>
+                <option>Sales</option>
+                <option>Operations</option>
+                <option>Engineering</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>From</label><input type="date" value="2026-07-01" /></div>
+              <div class="form-group"><label>To</label><input type="date" value="2026-07-17" /></div>
+            </div>
+            <button class="btn btn-primary" onclick="showToast('HR report generated')"><i
+                class="ti ti-file-download"></i> Generate report</button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════════════════════════ -->
+
+  <!-- Generate ID modal -->
+  <div id="idModal" class="hidden">
+    <div class="modal-bg" onclick="hideModal('idModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title"><i class="ti ti-id-badge"></i> Generate department ID</div>
+        <div class="form-group"><label>Department</label>
+          <select id="newIdDept">
+            <option value="ADMIN">Administration (ADMIN)</option>
+            <option value="SALES">Sales team (SALES)</option>
+            <option value="HR">Human resources (HR)</option>
+            <option value="OPS">Operations (OPS)</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Assign to (full name)</label><input id="newIdName"
+            placeholder="e.g. Anika Sharma" /></div>
+        <div class="form-group"><label>Role / position</label><input id="newIdRole"
+            placeholder="e.g. Sales rep, HR specialist" /></div>
+        <div class="form-group"><label>Initial password</label><input id="newIdPass" type="password"
+            placeholder="Set a secure password" /></div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="hideModal('idModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="createId()"><i class="ti ti-check"></i> Create ID</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add user modal -->
+  <div id="userModal" class="hidden">
+    <div class="modal-bg" onclick="hideModal('userModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title"><i class="ti ti-user-plus"></i> Add new user</div>
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input id="newUserFirst" placeholder="First" /></div>
+          <div class="form-group"><label>Last name</label><input id="newUserLast" placeholder="Last" /></div>
+        </div>
+        <div class="form-group"><label>Department</label>
+          <select id="newUserDept">
+            <option value="SALES">Sales</option>
+            <option value="HR">HR</option>
+            <option value="ADMIN">Admin</option>
+            <option value="OPS">Operations</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Role / position</label><input id="newUserRole" placeholder="e.g. Account exec" />
+        </div>
+        <div class="form-group"><label>Password</label><input id="newUserPass" type="password"
+            placeholder="Set a password" /></div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="hideModal('userModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="createUser()"><i class="ti ti-check"></i> Add user</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add department modal -->
+  <div id="deptModal" class="hidden">
+    <div class="modal-bg" onclick="hideModal('deptModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title"><i class="ti ti-building-community"></i> Add department</div>
+        <div class="form-group"><label>Department name</label><input placeholder="e.g. Engineering" /></div>
+        <div class="form-group"><label>Code (3–5 letters)</label><input placeholder="e.g. ENG"
+            style="text-transform:uppercase" /></div>
+        <div class="form-group"><label>Access level</label>
+          <select>
+            <option>Full</option>
+            <option>Products &amp; orders</option>
+            <option>Employee monitoring</option>
+            <option>Inventory</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="hideModal('deptModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="hideModal('deptModal');showToast('Department created')"><i
+              class="ti ti-check"></i> Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CREDS = {
+      'ADMIN-001': { pass: 'admin123', role: 'admin', name: 'Admin User' },
+      'SALES-007': { pass: 'sales123', role: 'sales', name: 'Sales Rep' },
+      'HR-020': { pass: 'hr123', role: 'hr', name: 'HR Officer' },
+    };
+
+    let currentUser = null;
+    let idCounter = 13;
+    let userCounter = 1005;
+
+    const idStore = [
+      { id: 'ADMIN-001', dept: 'ADMIN', name: 'Admin User', created: 'Jul 1', status: 'Active' },
+      { id: 'SALES-007', dept: 'SALES', name: 'Nisha Verma', created: 'Jul 3', status: 'Active' },
+      { id: 'SALES-012', dept: 'SALES', name: 'Rohit Das', created: 'Jul 17', status: 'Active' },
+      { id: 'HR-020', dept: 'HR', name: 'Meera Singh', created: 'Jul 2', status: 'Active' },
+    ];
+
+    const userStore = [
+      { name: 'Admin User', id: 'ADMIN-001', dept: 'ADMIN', role: 'System admin', status: 'Active' },
+      { name: 'Nisha Verma', id: 'SALES-007', dept: 'SALES', role: 'Senior sales rep', status: 'Active' },
+      { name: 'Rohit Das', id: 'SALES-012', dept: 'SALES', role: 'Sales rep', status: 'Active' },
+      { name: 'Meera Singh', id: 'HR-020', dept: 'HR', role: 'HR officer', status: 'Active' },
+    ];
+
+    /* ── AUTH ── */
+    function doLogin() {
+      const id = document.getElementById('loginId').value.trim().toUpperCase();
+      const pass = document.getElementById('loginPass').value;
+      const err = document.getElementById('loginErr');
+      if (CREDS[id] && CREDS[id].pass === pass) {
+        err.classList.add('hidden');
+        currentUser = { id, ...CREDS[id] };
+        loadApp();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('loginId').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+    function loadApp() {
+      document.getElementById('loginScreen').style.display = 'none';
+      const app = document.getElementById('mainApp');
+      app.classList.remove('hidden');
+      app.style.display = 'flex';
+
+      const initials = currentUser.name.split(' ').map(w => w[0]).join('').toUpperCase();
+      document.getElementById('userAvatar').textContent = initials;
+      document.getElementById('userNameSide').textContent = currentUser.name;
+      document.getElementById('topId').textContent = currentUser.id;
+
+      const roleMap = {
+        admin: ['navAdmin', 'badge-admin', 'Super admin', 'dashboard'],
+        sales: ['navSales', 'badge-sales', 'Sales team', 'salesDash'],
+        hr: ['navHR', 'badge-hr', 'HR dept', 'hrDash'],
+      };
+      const [nav, badgeClass, roleLabel, firstPage] = roleMap[currentUser.role];
+
+      ['navAdmin', 'navSales', 'navHR'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      document.getElementById(nav).classList.remove('hidden');
+
+      const badge = document.getElementById('topBadge');
+      badge.textContent = roleLabel;
+      badge.className = 'badge ' + badgeClass;
+
+      document.getElementById('roleLabel').textContent = roleLabel;
+      document.getElementById('userRoleSide').textContent =
+        currentUser.role === 'admin' ? 'Full access' :
+          currentUser.role === 'sales' ? 'Sales access' : 'HR access';
+
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const pageKey = 'page' + firstPage.charAt(0).toUpperCase() + firstPage.slice(1);
+      document.getElementById(pageKey).classList.add('active');
+
+      renderIds();
+      renderUsers();
+    }
+
+    /* ── NAVIGATION ── */
+    function showPage(key, el) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const pageKey = 'page' + key.charAt(0).toUpperCase() + key.slice(1);
+      const pg = document.getElementById(pageKey);
+      if (pg) pg.classList.add('active');
+      const titles = {
+        dashboard: 'Dashboard', departments: 'Departments', users: 'All users',
+        ids: 'ID management', settings: 'Settings', logs: 'Audit logs',
+        salesDash: 'Sales dashboard', products: 'Products', salesOrders: 'Orders',
+        salesReports: 'Reports', hrDash: 'HR overview', employees: 'Employees',
+        attendance: 'Attendance', hrReports: 'HR reports',
+      };
+      document.getElementById('pageTitle').textContent = titles[key] || key;
+    }
+
+    /* ── MODALS ── */
+    function showModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function hideModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    /* ── TOAST ── */
+    function showToast(msg, type) {
+      const t = document.createElement('div');
+      t.className = 'toast ' + (type === 'error' ? 'toast-error' : 'toast-success');
+      t.innerHTML = `<i class="ti ti-${type === 'error' ? 'alert-triangle' : 'circle-check'}"
+    style="font-size:17px;color:var(--${type === 'error' ? 'text-danger' : 'text-success'})"></i>
+    <span>${msg}</span>`;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3200);
+    }
+
+    /* ── RENDER TABLES ── */
+    const badgeMap = { ADMIN: 'badge-admin', SALES: 'badge-sales', HR: 'badge-hr', OPS: 'badge-warning' };
+
+    function renderIds() {
+      const tbody = document.getElementById('idsBody');
+      if (!tbody) return;
+      tbody.innerHTML = idStore.map((r, i) => `
+    <tr>
+      <td><span class="id-chip">${r.id}</span></td>
+      <td><span class="badge ${badgeMap[r.dept] || ''}">${r.dept}</span></td>
+      <td>${r.name}</td>
+      <td style="color:var(--text-muted)">${r.created}</td>
+      <td><span class="badge ${r.status === 'Active' ? 'badge-hr' : 'badge-warning'}">${r.status}</span></td>
+      <td><button class="btn btn-danger btn-sm" onclick="revokeId(${i})"><i class="ti ti-ban"></i> Revoke</button></td>
+    </tr>`).join('');
+    }
+
+    function renderUsers() {
+      const tbody = document.getElementById('usersBody');
+      if (!tbody) return;
+      tbody.innerHTML = userStore.map((u, i) => `
+    <tr>
+      <td><strong>${u.name}</strong></td>
+      <td><span class="id-chip">${u.id}</span></td>
+      <td><span class="badge ${badgeMap[u.dept] || ''}">${u.dept}</span></td>
+      <td style="color:var(--text-secondary)">${u.role}</td>
+      <td><span class="badge badge-hr">${u.status}</span></td>
+      <td><button class="btn btn-danger btn-sm" onclick="removeUser(${i})"><i class="ti ti-trash"></i> Remove</button></td>
+    </tr>`).join('');
+    }
+
+    /* ── CRUD ── */
+    function createId() {
+      const dept = document.getElementById('newIdDept').value;
+      const name = document.getElementById('newIdName').value.trim();
+      const pass = document.getElementById('newIdPass').value;
+      if (!name || !pass) { showToast('Please fill in all fields', 'error'); return; }
+      const num = String(idCounter++).padStart(3, '0');
+      const newId = dept + '-' + num;
+      idStore.push({ id: newId, dept, name, created: 'Jul 17', status: 'Active' });
+      CREDS[newId] = {
+        pass,
+        role: dept === 'ADMIN' ? 'admin' : dept === 'SALES' ? 'sales' : dept === 'HR' ? 'hr' : 'sales',
+        name,
+      };
+      renderIds();
+      hideModal('idModal');
+      showToast('ID ' + newId + ' created successfully');
+      document.getElementById('newIdName').value = '';
+      document.getElementById('newIdPass').value = '';
+    }
+
+    function createUser() {
+      const first = document.getElementById('newUserFirst').value.trim();
+      const last = document.getElementById('newUserLast').value.trim();
+      const dept = document.getElementById('newUserDept').value;
+      const role = document.getElementById('newUserRole').value.trim();
+      const pass = document.getElementById('newUserPass').value;
+      if (!first || !last || !role || !pass) { showToast('Please fill in all fields', 'error'); return; }
+      const num = String(userCounter++).padStart(3, '0');
+      const newId = dept + '-' + num;
+      userStore.push({ name: first + ' ' + last, id: newId, dept, role, status: 'Active' });
+      idStore.push({ id: newId, dept, name: first + ' ' + last, created: 'Jul 17', status: 'Active' });
+      CREDS[newId] = {
+        pass,
+        role: dept === 'ADMIN' ? 'admin' : dept === 'SALES' ? 'sales' : dept === 'HR' ? 'hr' : 'sales',
+        name: first + ' ' + last,
+      };
+      renderUsers();
+      renderIds();
+      hideModal('userModal');
+      showToast(first + ' added — ID: ' + newId);
+    }
+
+    function revokeId(i) {
+      idStore[i].status = 'Revoked';
+      renderIds();
+      showToast('ID ' + idStore[i].id + ' revoked');
+    }
+
+    function removeUser(i) {
+      const name = userStore[i].name;
+      userStore.splice(i, 1);
+      renderUsers();
+      showToast(name + ' removed');
+    }
+
+    /* ── LOGOUT ── */
+    function logout() {
+      currentUser = null;
+      const app = document.getElementById('mainApp');
+      app.classList.add('hidden');
+      app.style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('loginId').value = '';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginErr').classList.add('hidden');
+    }
+  </script>
+</body>
+
+</html>
