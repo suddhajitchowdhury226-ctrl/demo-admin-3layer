@@ -2317,7 +2317,6 @@
     }
 
     /* ─── TASKS ────────────────────────────────────────── */
-    let taskFilter = 'all';
     function filterTasks(f, el) {
       taskFilter = f;
       document.querySelectorAll('#page-tasks .tab').forEach(t => t.classList.remove('active'));
@@ -2478,7 +2477,6 @@
     }
 
     /* ─── EMPLOYEES ────────────────────────────────────── */
-    let empFilter = 'all';
     function filterEmp(f, el) {
       empFilter = f;
       document.querySelectorAll('#page-employees .tab').forEach(t => t.classList.remove('active'));
