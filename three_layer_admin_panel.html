@@ -1628,6 +1628,357 @@
         transition-duration: 0.01ms !important
       }
     }
+
+    /* ─── LIVE OPS ───────────────────────────────────────── */
+    .live-dot-pulse {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+      animation: livePulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6)
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0)
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0)
+      }
+    }
+
+    .live-indicator {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--txt-ok);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      padding: 2px 7px;
+      border-radius: 20px;
+      margin-left: 8px;
+      animation: liveFade 2s ease-in-out infinite;
+    }
+
+    @keyframes liveFade {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .5
+      }
+    }
+
+    .live-clock {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+      color: var(--txt-acc);
+      background: rgba(13, 148, 136, 0.1);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      padding: 5px 12px;
+      border-radius: var(--radius);
+      letter-spacing: 0.06em;
+      min-width: 86px;
+      text-align: center;
+    }
+
+    .live-badge {
+      animation: liveFade 1.5s ease-in-out infinite;
+      background: var(--green) !important;
+      font-size: 8px !important;
+      padding: 2px 5px !important;
+    }
+
+    .ops-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .ops-kpi {
+      background: linear-gradient(135deg, var(--s2), var(--s3));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: transform .15s;
+    }
+
+    .ops-kpi:hover {
+      transform: translateY(-2px)
+    }
+
+    .ops-kpi::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    }
+
+    .ops-kpi-lbl {
+      font-size: 10px;
+      color: var(--txt-m);
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .ops-kpi-val {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1
+    }
+
+    .ops-kpi-sub {
+      font-size: 10px;
+      color: var(--txt-s);
+      margin-top: 5px
+    }
+
+    /* presence */
+    .presence-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .presence-row:last-child {
+      border-bottom: none
+    }
+
+    .presence-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .presence-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .presence-name {
+      font-size: 12px;
+      font-weight: 500
+    }
+
+    .presence-status {
+      font-size: 10px;
+      color: var(--txt-m);
+      margin-top: 1px
+    }
+
+    .presence-time {
+      font-size: 10px;
+      color: var(--txt-m);
+      white-space: nowrap
+    }
+
+    /* timer rows */
+    .timer-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .timer-row:last-child {
+      border-bottom: none
+    }
+
+    .timer-elapsed {
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      color: var(--txt-ok);
+      min-width: 64px;
+      text-align: right;
+      background: rgba(34, 197, 94, 0.08);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .timer-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .timer-task {
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .timer-person {
+      font-size: 10px;
+      color: var(--txt-m);
+      margin-top: 1px
+    }
+
+    /* attendance live board */
+    .att-live-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .att-live-row:last-child {
+      border-bottom: none
+    }
+
+    .att-live-status {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      min-width: 62px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* activity stream */
+    .stream-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: all .15s;
+    }
+
+    .stream-item:hover {
+      background: rgba(255, 255, 255, 0.04)
+    }
+
+    .stream-item.new-item {
+      animation: streamSlide .35s ease
+    }
+
+    @keyframes streamSlide {
+      from {
+        opacity: 0;
+        transform: translateX(-10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
+    }
+
+    .stream-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .stream-body {
+      flex: 1;
+      min-width: 0
+    }
+
+    .stream-msg {
+      font-size: 12px;
+      font-weight: 500
+    }
+
+    .stream-time {
+      font-size: 10px;
+      color: var(--txt-m);
+      margin-top: 2px
+    }
+
+    .stream-empty {
+      text-align: center;
+      padding: 28px;
+      color: var(--txt-m);
+      font-size: 12px;
+    }
+
+    /* at-risk */
+    .risk-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .risk-row:last-child {
+      border-bottom: none
+    }
+
+    .risk-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .risk-title {
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .risk-meta {
+      font-size: 10px;
+      color: var(--txt-m);
+      margin-top: 1px
+    }
+
+    .risk-pulse {
+      animation: riskPulse 2s ease-in-out infinite
+    }
+
+    @keyframes riskPulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .6
+      }
+    }
   </style>
 
   <!-- ═══════════════ LOGIN SCREEN ══════════════════════ -->
@@ -1751,6 +2102,10 @@
         </div>
         <div class="nav-item" onclick="showPage('rollout')" id="nav-rollout" role="button" tabindex="0">
           <i class="ti ti-rocket" aria-hidden="true"></i> Rollout
+        </div>
+        <div class="nav-item" onclick="showPage('ops')" id="nav-ops" role="button" tabindex="0">
+          <i class="ti ti-activity" aria-hidden="true"></i> Live Ops
+          <span class="nav-badge live-badge" id="opsBadge">●</span>
         </div>
 
         <div class="sidebar-footer">
@@ -2018,6 +2373,87 @@
           </div>
         </div>
 
+        <!-- ── LIVE OPS VIEW ──────────────────────────────── -->
+        <div class="page" id="page-ops">
+          <div class="section-header">
+            <div>
+              <div class="section-title" style="display:flex;align-items:center;gap:10px">
+                <span class="live-dot-pulse"></span> Live Ops Monitor
+              </div>
+              <div class="section-sub">Real-time team activity · Auto-refreshes every 5s · Admin &amp; Manager only
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div class="live-clock" id="liveClock">--:--:--</div>
+              <button class="btn btn-acc btn-sm" onclick="refreshOps()">
+                <i class="ti ti-refresh" aria-hidden="true"></i> Refresh
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI strip -->
+          <div class="ops-kpi-row" id="opsKpiRow"></div>
+
+          <div class="grid-2" style="margin-bottom:16px">
+            <!-- Live presence board -->
+            <div class="card">
+              <div class="card-title">
+                <i class="ti ti-wifi" style="color:var(--teal)" aria-hidden="true"></i>
+                Live Presence
+                <span style="margin-left:auto;font-size:10px;color:var(--txt-m)" id="presenceUpdated">Updated just
+                  now</span>
+              </div>
+              <div id="presenceList"></div>
+            </div>
+
+            <!-- Running timers -->
+            <div class="card">
+              <div class="card-title">
+                <i class="ti ti-player-play" style="color:var(--green)" aria-hidden="true"></i>
+                Active Timers
+                <span style="margin-left:auto;font-size:10px;color:var(--txt-m)">Ticking live</span>
+              </div>
+              <div id="activeTimers"></div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom:16px">
+            <!-- Today's attendance live board -->
+            <div class="card">
+              <div class="card-title">
+                <i class="ti ti-calendar-check" style="color:var(--blue)" aria-hidden="true"></i>
+                Today's Attendance
+                <span class="live-indicator">LIVE</span>
+              </div>
+              <div id="liveAttBoard"></div>
+            </div>
+
+            <!-- At-risk tasks -->
+            <div class="card">
+              <div class="card-title">
+                <i class="ti ti-alert-triangle" style="color:var(--amber)" aria-hidden="true"></i>
+                At-Risk &amp; Overdue Tasks
+                <span id="overdueCounter"
+                  style="margin-left:auto;font-size:11px;font-weight:700;color:var(--txt-err)">7</span>
+              </div>
+              <div id="atRiskTasks"></div>
+            </div>
+          </div>
+
+          <!-- Activity stream -->
+          <div class="card">
+            <div class="card-title">
+              <i class="ti ti-activity" aria-hidden="true"></i>
+              Activity Stream
+              <span class="live-indicator">LIVE</span>
+              <button class="btn btn-sm" style="margin-left:auto" onclick="clearStream()">
+                <i class="ti ti-trash" aria-hidden="true"></i> Clear
+              </button>
+            </div>
+            <div id="activityStream"></div>
+          </div>
+        </div>
+
       </main>
     </div>
   </div>
@@ -2159,6 +2595,7 @@
       renderPermissions();
       renderRollout();
       renderCalendar();
+      if (currentRole !== 'employee') renderOps();
     }
 
     function doLogout() {
@@ -2177,7 +2614,7 @@
     function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
     function applyRoleVisibility() {
-      const adminOnly = ['nav-employees', 'nav-permissions', 'nav-rollout'];
+      const adminOnly = ['nav-employees', 'nav-permissions', 'nav-rollout', 'nav-ops'];
       const adminSec = document.getElementById('adminSection');
       if (currentRole === 'employee') {
         adminSec.style.display = 'none';
@@ -2206,6 +2643,7 @@
       const titleEl = document.getElementById('pageTitle');
       if (titleEl) titleEl.textContent = titles[id] || id;
       if (id === 'calendar') renderCalendar();
+      if (id === 'ops') renderOps();
     }
 
     /* ─── HELPERS ──────────────────────────────────────── */
@@ -2557,10 +2995,9 @@
     }
 
     /* ─── KEYBOARD NAV ─────────────────────────────────── */
-    document.addEventListener('keydown', e => {
-      document.querySelectorAll('.nav-item[tabindex="0"]').forEach(el => {
-        el.addEventListener('keydown', k => { if (k.key === 'Enter' || k.key === ' ') el.click(); });
-      });
+    document.querySelectorAll('.nav-item[tabindex="0"]').forEach(el => {
+      el.addEventListener('keydown', k => { if (k.key === 'Enter' || k.key === ' ') el.click(); });
+    });
     });
 
     /* ─── CSS: TOAST ANIMATION ─────────────────────────── */
@@ -2570,6 +3007,229 @@
       @keyframes shake   { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
     `;
     document.head.appendChild(styleEl);
+
+
+    /* ═══════════════ LIVE OPS DATA ════════════════════ */
+    const PRESENCE_DATA = [
+      { initials: 'TM', color: '#0D9488', name: 'Tarun Mehta', role: 'Manager', status: 'online', lastSeen: 'Active now', device: 'web' },
+      { initials: 'SD', color: '#3B82F6', name: 'Shiladri Das', role: 'Designer', status: 'online', lastSeen: 'Active now', device: 'web' },
+      { initials: 'GS', color: '#7C3AED', name: 'Gopal Sen', role: 'Developer', status: 'idle', lastSeen: 'Idle 4 min ago', device: 'web' },
+      { initials: 'PR', color: '#F59E0B', name: 'Priya Roy', role: 'Marketing Lead', status: 'online', lastSeen: 'Active now', device: 'web' },
+      { initials: 'RB', color: '#EF4444', name: 'Rahul Bose', role: 'Sales Lead', status: 'offline', lastSeen: 'Last seen 2h ago', device: 'web' },
+      { initials: 'NG', color: '#22C55E', name: 'Neha Gupta', role: 'HR', status: 'online', lastSeen: 'Active now', device: 'web' },
+      { initials: 'AS', color: '#F59E0B', name: 'Amit Saha', role: 'Developer', status: 'idle', lastSeen: 'Idle 12 min ago', device: 'web' },
+      { initials: 'RS', color: '#64748B', name: 'Ritika Sen', role: 'Designer', status: 'offline', lastSeen: 'Resigned', device: '-' },
+    ];
+    const LIVE_TIMERS = [
+      { initials: 'TM', color: '#0D9488', person: 'Tarun Mehta', task: 'Homepage redesign', project: 'Web Revamp', startedMinsAgo: 150 },
+      { initials: 'SD', color: '#3B82F6', person: 'Shiladri Das', task: 'Design system tokens', project: 'Web Revamp', startedMinsAgo: 190 },
+      { initials: 'PR', color: '#F59E0B', person: 'Priya Roy', task: 'Q3 social media calendar', project: 'Marketing', startedMinsAgo: 75 },
+      { initials: 'GS', color: '#7C3AED', person: 'Gopal Sen', task: 'Server migration plan', project: 'Infrastructure', startedMinsAgo: 28 },
+    ];
+    const ATT_STATUS_CONFIG = {
+      P: { label: 'Present', bg: 'rgba(34,197,94,.15)', color: '#4ade80' },
+      W: { label: 'WFH', bg: 'rgba(59,130,246,.15)', color: '#93c5fd' },
+      L: { label: 'Leave', bg: 'rgba(239,68,68,.15)', color: '#f87171' },
+      H: { label: 'Half day', bg: 'rgba(245,158,11,.15)', color: '#fcd34d' },
+      A: { label: 'Absent', bg: 'rgba(100,116,139,.15)', color: '#94a3b8' },
+    };
+    const STREAM_EVENTS_BASE = [
+      { icon: 'ti-player-play', ibg: 'rgba(34,197,94,.15)', ic: '#4ade80', msg: 'Gopal Sen started timer on <strong>Server migration plan</strong>', time: 'Just now' },
+      { icon: 'ti-circle-check', ibg: 'rgba(13,148,136,.15)', ic: '#5eead4', msg: 'Tarun Mehta marked <strong>Pitch deck</strong> as Completed', time: '2 min ago' },
+      { icon: 'ti-calendar-check', ibg: 'rgba(59,130,246,.15)', ic: '#93c5fd', msg: 'Priya Roy marked attendance as <strong>Present</strong>', time: '5 min ago' },
+      { icon: 'ti-alert-triangle', ibg: 'rgba(239,68,68,.15)', ic: '#f87171', msg: '<strong>Homepage redesign</strong> is 3 days overdue', time: '8 min ago' },
+      { icon: 'ti-transfer', ibg: 'rgba(124,58,237,.15)', ic: '#c4b5fd', msg: 'Neha Gupta moved <strong>Employee handbook</strong> to In Progress', time: '14 min ago' },
+      { icon: 'ti-calendar-event', ibg: 'rgba(245,158,11,.15)', ic: '#fcd34d', msg: 'Rahul Bose submitted leave request for <strong>23-24 Jul</strong>', time: '22 min ago' },
+      { icon: 'ti-check-circle', ibg: 'rgba(34,197,94,.15)', ic: '#4ade80', msg: 'Neha Gupta approved leave for <strong>Rahul Bose</strong>', time: '25 min ago' },
+      { icon: 'ti-player-stop', ibg: 'rgba(59,130,246,.15)', ic: '#93c5fd', msg: 'Tarun Mehta stopped timer on <strong>Homepage redesign</strong> — 2h 30m', time: '38 min ago' },
+      { icon: 'ti-user-check', ibg: 'rgba(13,148,136,.15)', ic: '#5eead4', msg: 'Shiladri Das marked attendance as <strong>WFH</strong>', time: '1h ago' },
+      { icon: 'ti-clock-exclamation', ibg: 'rgba(239,68,68,.15)', ic: '#f87171', msg: '<strong>Design system tokens</strong> became overdue', time: '2h ago' },
+    ];
+    const SIM_EVENTS = [
+      { icon: 'ti-player-play', ibg: 'rgba(34,197,94,.15)', ic: '#4ade80', msg: 'Neha Gupta started timer on <strong>Employee handbook update</strong>', time: 'Just now' },
+      { icon: 'ti-circle-check', ibg: 'rgba(13,148,136,.15)', ic: '#5eead4', msg: 'Gopal Sen marked <strong>Server migration</strong> as In Progress', time: 'Just now' },
+      { icon: 'ti-calendar-check', ibg: 'rgba(59,130,246,.15)', ic: '#93c5fd', msg: 'Amit Saha marked attendance as <strong>Present</strong>', time: 'Just now' },
+      { icon: 'ti-transfer', ibg: 'rgba(124,58,237,.15)', ic: '#c4b5fd', msg: 'Priya Roy moved <strong>Analytics report</strong> to Under Review', time: 'Just now' },
+      { icon: 'ti-message-circle', ibg: 'rgba(245,158,11,.15)', ic: '#fcd34d', msg: 'Tarun Mehta commented on <strong>Homepage redesign</strong>', time: 'Just now' },
+      { icon: 'ti-user-check', ibg: 'rgba(13,148,136,.15)', ic: '#5eead4', msg: 'Shiladri Das updated <strong>Design system tokens</strong> to In Progress', time: 'Just now' },
+    ];
+    let streamEvents = [...STREAM_EVENTS_BASE];
+    let opsInterval = null;
+    let clockInterval = null;
+    let timerTickInt = null;
+    let timerStartTimes = {};
+    let simIdx = 0;
+
+    /* ─── OPS CLOCK ──────────────────────────────────── */
+    function startClock() {
+      clearInterval(clockInterval);
+      const tick = () => {
+        const n = new Date();
+        const el = document.getElementById('liveClock');
+        if (el) el.textContent =
+          String(n.getHours()).padStart(2, '0') + ':' +
+          String(n.getMinutes()).padStart(2, '0') + ':' +
+          String(n.getSeconds()).padStart(2, '0');
+      };
+      tick();
+      clockInterval = setInterval(tick, 1000);
+    }
+
+    /* ─── OPS KPI STRIP ──────────────────────────────── */
+    function renderOpsKPIs() {
+      const online = PRESENCE_DATA.filter(p => p.status === 'online').length;
+      const idle = PRESENCE_DATA.filter(p => p.status === 'idle').length;
+      const present = EMPLOYEES.filter(e => e.att[0] === 'P').length;
+      const wfh = EMPLOYEES.filter(e => e.att[0] === 'W').length;
+      const kpis = [
+        { lbl: 'Online now', val: online, icon: 'ti-wifi', color: 'var(--teal)', ic: 'kpi-icon-teal' },
+        { lbl: 'Idle', val: idle, icon: 'ti-moon', color: 'var(--amber)', ic: 'kpi-icon-amber' },
+        { lbl: 'Present today', val: present, icon: 'ti-building', color: 'var(--green)', ic: 'kpi-icon-green' },
+        { lbl: 'Working from home', val: wfh, icon: 'ti-home', color: 'var(--blue)', ic: 'kpi-icon-blue' },
+        { lbl: 'Active timers', val: LIVE_TIMERS.length, icon: 'ti-player-play', color: 'var(--green)', ic: 'kpi-icon-green' },
+      ];
+      document.getElementById('opsKpiRow').innerHTML = kpis.map(k =>
+        '<div class="ops-kpi">' +
+        '<div class="ops-kpi-lbl"><i class="ti ' + k.icon + '" aria-hidden="true"></i> ' + k.lbl + '</div>' +
+        '<div class="ops-kpi-val" style="color:' + k.color + '">' + k.val + '</div>' +
+        '<div class="kpi-icon ' + k.ic + '"><i class="ti ' + k.icon + '" aria-hidden="true"></i></div>' +
+        '</div>'
+      ).join('');
+    }
+
+    /* ─── PRESENCE ───────────────────────────────────── */
+    function renderPresence() {
+      const dotColor = { online: '#22C55E', idle: '#F59E0B', offline: '#475569' };
+      const pulseStyle = 'animation:livePulse 1.8s ease-in-out infinite';
+      document.getElementById('presenceList').innerHTML = PRESENCE_DATA.map(p => {
+        const dot = dotColor[p.status];
+        const pulse = p.status === 'online' ? pulseStyle : '';
+        return '<div class="presence-row">' +
+          '<div class="av av-sm" style="background:' + p.color + ';position:relative">' + p.initials +
+          '<span style="position:absolute;bottom:-1px;right:-1px;width:8px;height:8px;border-radius:50%;background:' + dot + ';border:1.5px solid var(--s2)"></span></div>' +
+          '<div class="presence-info"><div class="presence-name">' + p.name + '</div>' +
+          '<div class="presence-status">' + p.role + ' · ' + p.device + '</div></div>' +
+          '<div style="display:flex;align-items:center;gap:6px">' +
+          '<div style="width:6px;height:6px;border-radius:50%;background:' + dot + ';' + pulse + '"></div>' +
+          '<span style="font-size:10px;color:var(--txt-m)">' + p.lastSeen + '</span></div>' +
+          '</div>';
+      }).join('');
+    }
+
+    /* ─── LIVE TIMERS ────────────────────────────────── */
+    function renderLiveTimers() {
+      const now = Date.now();
+      LIVE_TIMERS.forEach((t, i) => {
+        if (!timerStartTimes[i]) timerStartTimes[i] = now - t.startedMinsAgo * 60000;
+      });
+      const buildRows = () => LIVE_TIMERS.map((t, i) => {
+        const e = Math.floor((Date.now() - timerStartTimes[i]) / 1000);
+        const h = String(Math.floor(e / 3600)).padStart(2, '0');
+        const m = String(Math.floor((e % 3600) / 60)).padStart(2, '0');
+        const s = String(e % 60).padStart(2, '0');
+        return '<div class="timer-row">' +
+          '<div class="av av-sm" style="background:' + t.color + '">' + t.initials + '</div>' +
+          '<div class="timer-info"><div class="timer-task">' + t.task + '</div>' +
+          '<div class="timer-person">' + t.person + ' · ' + t.project + '</div></div>' +
+          '<div class="timer-elapsed" id="timer-' + i + '">' + h + ':' + m + ':' + s + '</div>' +
+          '</div>';
+      }).join('');
+      const wrap = document.getElementById('activeTimers');
+      if (wrap) wrap.innerHTML = buildRows();
+      clearInterval(timerTickInt);
+      timerTickInt = setInterval(() => {
+        LIVE_TIMERS.forEach((t, i) => {
+          const el = document.getElementById('timer-' + i);
+          if (!el) return;
+          const e2 = Math.floor((Date.now() - timerStartTimes[i]) / 1000);
+          const hh = String(Math.floor(e2 / 3600)).padStart(2, '0');
+          const mm = String(Math.floor((e2 % 3600) / 60)).padStart(2, '0');
+          const ss = String(e2 % 60).padStart(2, '0');
+          el.textContent = hh + ':' + mm + ':' + ss;
+        });
+      }, 1000);
+    }
+
+    /* ─── LIVE ATT BOARD ─────────────────────────────── */
+    function renderLiveAttBoard() {
+      document.getElementById('liveAttBoard').innerHTML = EMPLOYEES
+        .filter(e => e.status !== 'resigned')
+        .map(e => {
+          const key = e.att[0] || 'A';
+          const cfg = ATT_STATUS_CONFIG[key] || ATT_STATUS_CONFIG['A'];
+          return '<div class="att-live-row">' +
+            '<div class="av av-sm" style="background:' + e.color + '">' + e.initials + '</div>' +
+            '<div style="flex:1;min-width:0">' +
+            '<div style="font-size:12px;font-weight:500">' + e.name + '</div>' +
+            '<div style="font-size:10px;color:var(--txt-m)">' + e.role + '</div></div>' +
+            '<div class="att-live-status" style="background:' + cfg.bg + ';color:' + cfg.color + '">' + cfg.label + '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    /* ─── AT-RISK TASKS ──────────────────────────────── */
+    function renderAtRiskTasks() {
+      const risk = TASKS.filter(t => t.status === 'Overdue' || t.status === 'In Progress');
+      const counter = document.getElementById('overdueCounter');
+      if (counter) counter.textContent = TASKS.filter(t => t.status === 'Overdue').length;
+      document.getElementById('atRiskTasks').innerHTML = risk.slice(0, 6).map(t => {
+        const isOver = t.status === 'Overdue';
+        return '<div class="risk-row">' +
+          '<div style="width:3px;height:32px;border-radius:2px;flex-shrink:0;background:' +
+          (isOver ? 'var(--red)' : 'var(--amber)') + (isOver ? ';animation:riskPulse 2s ease-in-out infinite' : '') + '"></div>' +
+          '<div class="risk-info"><div class="risk-title">' + t.title + '</div>' +
+          '<div class="risk-meta">' + t.project + ' · Due ' + t.due.slice(5).replace('-', '/') + ' · ' + t.assignees.join(', ') + '</div></div>' +
+          '<span class="tag ' + (isOver ? 'tag-overdue' : 'tag-prog') + '">' + t.status + '</span>' +
+          '</div>';
+      }).join('');
+    }
+
+    /* ─── ACTIVITY STREAM ────────────────────────────── */
+    function renderActivityStream() {
+      const el = document.getElementById('activityStream');
+      if (!el) return;
+      if (!streamEvents.length) {
+        el.innerHTML = '<div class="stream-empty"><i class="ti ti-activity" style="font-size:24px;display:block;margin-bottom:8px;opacity:.4"></i>No activity yet</div>';
+        return;
+      }
+      el.innerHTML = streamEvents.slice(0, 12).map((ev, i) =>
+        '<div class="stream-item ' + (i === 0 ? 'new-item' : '') + '">' +
+        '<div class="stream-icon" style="background:' + ev.ibg + '"><i class="ti ' + ev.icon + '" style="color:' + ev.ic + '" aria-hidden="true"></i></div>' +
+        '<div class="stream-body"><div class="stream-msg">' + ev.msg + '</div>' +
+        '<div class="stream-time">' + ev.time + '</div></div></div>'
+      ).join('');
+    }
+
+    /* ─── OPS AUTO-REFRESH (8s sim) ──────────────────── */
+    function startOpsAutoRefresh() {
+      clearInterval(opsInterval);
+      opsInterval = setInterval(() => {
+        const pg = document.getElementById('page-ops');
+        if (!pg || !pg.classList.contains('active')) return;
+        const ev = Object.assign({}, SIM_EVENTS[simIdx % SIM_EVENTS.length]);
+        simIdx++;
+        streamEvents.unshift(ev);
+        if (streamEvents.length > 20) streamEvents.pop();
+        renderActivityStream();
+        const pu = document.getElementById('presenceUpdated');
+        if (pu) pu.textContent = 'Updated just now';
+        showToast('Live update received', 'success');
+      }, 8000);
+    }
+
+    /* ─── OPS ENTRY ──────────────────────────────────── */
+    function renderOps() {
+      renderOpsKPIs();
+      renderPresence();
+      renderLiveTimers();
+      renderLiveAttBoard();
+      renderAtRiskTasks();
+      renderActivityStream();
+      startClock();
+      startOpsAutoRefresh();
+    }
+    function refreshOps() { renderOps(); showToast('Ops view refreshed', 'success'); }
+    function clearStream() { streamEvents = []; renderActivityStream(); }
 
   </script>
   </body>
