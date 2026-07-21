@@ -13,46 +13,83 @@
   <style>
     /* ─── TOKENS ─────────────────────────────────────────── */
     :root {
-      --navy: #0F1B2D;
-      --navy-d: #08111e;
-      --navy-l: #1a2d45;
+      /* Purple palette */
+      --purple: #7C3AED;
+      --purple-d: #5B21B6;
+      --purple-l: #EDE9FE;
+      --purple-xl: #F5F3FF;
+      --purple-2: #A78BFA;
+      --purple-3: #DDD6FE;
+      --violet: #8B5CF6;
+      --violet-d: #6D28D9;
+
+      /* Accent */
       --teal: #0D9488;
-      --teal-l: #CCFBF1;
       --teal-d: #0F766E;
-      --teal-xd: #065f52;
+      --teal-l: #CCFBF1;
+
+      /* Status */
       --amber: #F59E0B;
       --amber-l: #FEF3C7;
       --red: #EF4444;
       --red-l: #FEE2E2;
       --blue: #3B82F6;
       --blue-l: #DBEAFE;
-      --violet: #7C3AED;
-      --violet-l: #EDE9FE;
       --green: #22C55E;
       --green-l: #DCFCE7;
       --gray: #64748B;
-      --s0: #0a0f1a;
-      --s1: #111827;
-      --s2: #1a2332;
-      --s3: #1f2d3f;
-      --border: rgba(255, 255, 255, 0.07);
-      --border-s: rgba(255, 255, 255, 0.13);
-      --border-acc: #0D9488;
-      --txt-p: #e2e8f2;
-      --txt-s: #94a3b8;
-      --txt-m: #4a5568;
-      --txt-acc: #5eead4;
-      --txt-ok: #4ade80;
-      --txt-err: #f87171;
-      --txt-warn: #fbbf24;
-      --bg-acc: rgba(13, 148, 136, 0.12);
+
+      /* White-mode surfaces */
+      --s0: #F8F7FF;
+      /* page bg — near-white with purple tint  */
+      --s1: #FFFFFF;
+      /* card / sidebar                          */
+      --s2: #F3F0FF;
+      /* inner card / elevated panel             */
+      --s3: #EDE9FE;
+      /* deeper raised surface                   */
+
+      /* Borders */
+      --border: rgba(124, 58, 237, 0.1);
+      --border-s: rgba(124, 58, 237, 0.2);
+      --border-acc: #7C3AED;
+
+      /* Text — dark on white */
+      --txt-p: #1E1040;
+      /* primary — deep purple-black             */
+      --txt-s: #6B7280;
+      /* secondary — cool gray                   */
+      --txt-m: #9CA3AF;
+      /* muted                                   */
+      --txt-acc: #7C3AED;
+      /* accent — purple                         */
+      --txt-ok: #059669;
+      /* success green                           */
+      --txt-err: #DC2626;
+      /* error red                               */
+      --txt-warn: #D97706;
+      /* warning amber                           */
+
+      /* Bg tints */
+      --bg-acc: rgba(124, 58, 237, 0.08);
+
+      /* Radii */
       --radius: 8px;
       --radius-lg: 12px;
       --radius-xl: 16px;
+
+      /* Layout */
       --sidebar-w: 228px;
-      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
-      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4);
-      --glow-teal: 0 0 24px rgba(13, 148, 136, 0.3);
+      --navy: #2D1B69;
+      /* topbar / dark accents                   */
+      --navy-d: #1E1040;
+
+      /* Shadows — 3D depth */
+      --shadow-card: 0 2px 8px rgba(124, 58, 237, 0.08), 0 8px 24px rgba(124, 58, 237, 0.06), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+      --shadow-raise: 0 4px 16px rgba(124, 58, 237, 0.14), 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 48px rgba(124, 58, 237, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-float: 0 8px 32px rgba(124, 58, 237, 0.2), 0 2px 8px rgba(0, 0, 0, 0.06);
+      --glow-purple: 0 0 24px rgba(124, 58, 237, 0.3);
     }
 
     /* ─── RESET ──────────────────────────────────────────── */
@@ -76,30 +113,29 @@
       line-height: 1.5;
       min-height: 100vh;
       background-image:
-        radial-gradient(ellipse at 20% 0%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 100%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+        radial-gradient(ellipse at 10% 0%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(167, 139, 250, 0.04) 0%, transparent 60%);
     }
 
-    /* ─── SCROLLBAR ──────────────────────────────────────── */
     ::-webkit-scrollbar {
       width: 5px;
       height: 5px
     }
 
     ::-webkit-scrollbar-track {
-      background: transparent
+      background: var(--s2)
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(124, 58, 237, 0.2);
       border-radius: 3px
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.2)
+      background: rgba(124, 58, 237, 0.4)
     }
 
-    /* ─── LOGIN SCREEN ───────────────────────────────────── */
     #loginScreen {
       position: fixed;
       inset: 0;
@@ -107,47 +143,46 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--s0);
+      background: linear-gradient(135deg, #F8F7FF 0%, #EDE9FE 50%, #F3F0FF 100%);
       background-image:
-        radial-gradient(ellipse at 30% 20%, rgba(13, 148, 136, 0.15) 0%, transparent 55%),
-        radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(124, 58, 237, 0.05) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 10%, rgba(124, 58, 237, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 40%, rgba(167, 139, 250, 0.1) 0%, transparent 40%);
     }
 
-    /* floating orbs */
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(60px);
+      filter: blur(70px);
       pointer-events: none;
-      opacity: 0.35;
+      opacity: 0.5;
       animation: float 8s ease-in-out infinite
     }
 
     .orb-1 {
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(#0D9488, transparent);
-      top: -80px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(#7C3AED, transparent);
+      top: -100px;
       left: -80px;
       animation-delay: 0s
     }
 
     .orb-2 {
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(#3B82F6, transparent);
-      bottom: -60px;
-      right: -40px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(#A78BFA, transparent);
+      bottom: -80px;
+      right: -60px;
       animation-delay: 3s
     }
 
     .orb-3 {
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(#7C3AED, transparent);
-      top: 50%;
-      right: 20%;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(#DDD6FE, transparent);
+      top: 40%;
+      right: 15%;
       animation-delay: 5s
     }
 
@@ -159,85 +194,100 @@
       }
 
       50% {
-        transform: translateY(-20px) scale(1.04)
+        transform: translateY(-22px) scale(1.05)
       }
-    }
-
-    .login-wrap {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      padding: 24px
     }
 
     /* 3D card effect */
     .login-card {
-      background: linear-gradient(135deg, rgba(26, 35, 50, 0.9), rgba(17, 24, 39, 0.95));
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-xl);
-      padding: 36px 32px;
-      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(124, 58, 237, 0.15);
+      border-radius: 24px;
+      padding: 40px 36px;
+      box-shadow:
+        var(--shadow-lg),
+        0 1px 0 rgba(255, 255, 255, 1) inset,
+        0 -1px 0 rgba(124, 58, 237, 0.1) inset;
       transform-style: preserve-3d;
-      transform: perspective(1000px) rotateX(0deg);
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       position: relative;
       overflow: hidden
+    }
+
+    .login-card:hover {
+      transform: perspective(1000px) rotateX(1.5deg) rotateY(-1deg) translateY(-3px);
+      box-shadow: var(--shadow-float), 0 1px 0 rgba(255, 255, 255, 1) inset;
     }
 
     .login-card::before {
       content: '';
       position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.5), rgba(167, 139, 250, 0.8), rgba(124, 58, 237, 0.5), transparent);
+      border-radius: 24px 24px 0 0
+    }
+
+    .login-card::after {
+      content: '';
+      position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(13, 148, 136, 0.06), transparent 50%, rgba(59, 130, 246, 0.04));
-      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.03) 0%, transparent 50%, rgba(167, 139, 250, 0.02) 100%);
+      border-radius: 24px;
       pointer-events: none
     }
 
     .login-brand {
       text-align: center;
-      margin-bottom: 32px
+      margin-bottom: 28px
     }
 
     .login-logo {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--teal), var(--blue));
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #7C3AED, #A78BFA);
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 14px;
-      box-shadow: 0 8px 24px rgba(13, 148, 136, 0.45), 0 0 0 1px rgba(13, 148, 136, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      font-size: 22px;
-      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45), 0 0 0 1px rgba(124, 58, 237, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+      font-size: 24px;
+      font-weight: 800;
       color: #fff;
       letter-spacing: -0.5px;
-      position: relative
+      transform-style: preserve-3d;
+      transition: transform 0.3s;
+    }
+
+    .login-logo:hover {
+      transform: rotateY(15deg) rotateX(-10deg) scale(1.05)
     }
 
     .login-logo::after {
       content: '';
       position: absolute;
       inset: -1px;
-      border-radius: 15px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+      border-radius: 19px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 60%);
       pointer-events: none
     }
 
     .login-brand h1 {
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 800;
       color: var(--txt-p);
-      letter-spacing: -0.3px
+      letter-spacing: -0.5px
     }
 
     .login-brand p {
       font-size: 12px;
-      color: var(--txt-m);
-      margin-top: 4px
+      color: var(--txt-s);
+      margin-top: 5px
     }
 
     .form-group {
@@ -247,31 +297,31 @@
     .form-group label {
       display: block;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--txt-s);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       margin-bottom: 7px
     }
 
     .form-group input {
       width: 100%;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--s2);
+      border: 1.5px solid rgba(124, 58, 237, 0.12);
       border-radius: var(--radius);
       color: var(--txt-p);
       font-family: inherit;
       font-size: 13px;
-      padding: 10px 13px;
+      padding: 11px 14px;
       outline: none;
-      transition: all 0.15s;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2)
+      transition: all 0.18s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.02)
     }
 
     .form-group input:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.18), inset 0 2px 4px rgba(0, 0, 0, 0.2);
-      background: rgba(13, 148, 136, 0.05)
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.14), 0 2px 4px rgba(0, 0, 0, 0.04);
+      background: #fff
     }
 
     .form-group input::placeholder {
@@ -279,8 +329,8 @@
     }
 
     .login-err {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: rgba(220, 38, 38, 0.06);
+      border: 1px solid rgba(220, 38, 38, 0.2);
       border-radius: var(--radius);
       color: var(--txt-err);
       font-size: 12px;
@@ -293,27 +343,37 @@
 
     .btn-login {
       width: 100%;
-      padding: 11px;
+      padding: 12px;
       border: none;
       border-radius: var(--radius);
-      background: linear-gradient(135deg, var(--teal), #1a6bba);
+      background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
       color: #fff;
       font-family: inherit;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 16px rgba(13, 148, 136, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transition: all 0.15s;
-      letter-spacing: 0.02em
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.45), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+      transition: all 0.18s;
+      letter-spacing: 0.03em;
+      position: relative;
+      overflow: hidden
+    }
+
+    .btn-login::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+      border-radius: var(--radius)
     }
 
     .btn-login:hover {
-      filter: brightness(1.1);
-      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5)
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5)
     }
 
     .btn-login:active {
@@ -321,33 +381,36 @@
     }
 
     .login-roles {
-      margin-top: 24px;
+      margin-top: 20px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px
     }
 
     .role-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: var(--s2);
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
       border-radius: var(--radius);
-      padding: 10px 8px;
+      padding: 12px 8px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.18s;
       position: relative;
       overflow: hidden
     }
 
     .role-card:hover {
-      border-color: rgba(13, 148, 136, 0.4);
-      background: rgba(13, 148, 136, 0.06)
+      border-color: rgba(124, 58, 237, 0.4);
+      background: var(--purple-xl);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15)
     }
 
     .role-card.active-role {
-      border-color: var(--teal);
-      background: rgba(13, 148, 136, 0.12);
-      box-shadow: 0 0 12px rgba(13, 148, 136, 0.2)
+      border-color: var(--purple);
+      background: var(--purple-l);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1), 0 4px 16px rgba(124, 58, 237, 0.2);
+      transform: translateY(-1px)
     }
 
     .role-card-icon {
@@ -361,13 +424,13 @@
     }
 
     .role-card.active-role .role-card-icon {
-      color: var(--teal)
+      color: var(--purple)
     }
 
     .role-card-name {
       font-size: 11px;
-      font-weight: 600;
-      color: var(--txt-s)
+      font-weight: 700;
+      color: var(--txt-p)
     }
 
     .role-card-id {
@@ -382,15 +445,15 @@
       margin-top: 16px;
       font-size: 11px;
       color: var(--txt-m);
-      line-height: 1.8
+      line-height: 1.9
     }
 
     code.chip {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--purple-l);
+      border: 1px solid rgba(124, 58, 237, 0.2);
       padding: 1px 6px;
       border-radius: 4px;
-      color: var(--txt-acc);
+      color: var(--purple);
       font-family: monospace;
       font-size: 10px
     }
@@ -405,7 +468,7 @@
     .shell {
       display: grid;
       grid-template-columns: var(--sidebar-w) 1fr;
-      grid-template-rows: 52px 1fr;
+      grid-template-rows: 56px 1fr;
       height: 100vh;
       overflow: hidden
     }
@@ -416,10 +479,10 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 20px;
-      background: linear-gradient(90deg, var(--navy-d), var(--navy));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      padding: 0 24px;
+      background: linear-gradient(135deg, #2D1B69 0%, #4C1D95 50%, #5B21B6 100%);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+      box-shadow: 0 4px 20px rgba(45, 27, 105, 0.4), 0 1px 0 rgba(167, 139, 250, 0.15) inset;
       position: relative;
       z-index: 20
     }
@@ -431,32 +494,37 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.4), transparent)
+      background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.6), rgba(196, 181, 253, 0.8), rgba(167, 139, 250, 0.6), transparent)
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 9px;
-      font-weight: 600;
-      font-size: 15px;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 16px;
       color: #fff;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
       flex-shrink: 0
     }
 
     .logo-mark {
-      width: 30px;
-      height: 30px;
-      background: linear-gradient(135deg, var(--teal), #2563eb);
-      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #A78BFA, #7C3AED);
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
       color: #fff;
-      box-shadow: 0 2px 8px rgba(13, 148, 136, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)
+      box-shadow: 0 3px 10px rgba(124, 58, 237, 0.5), 0 1px 0 rgba(255, 255, 255, 0.25) inset;
+      transition: transform 0.2s
+    }
+
+    .logo-mark:hover {
+      transform: rotate(-5deg) scale(1.1)
     }
 
     .topbar-right {
@@ -467,35 +535,36 @@
     }
 
     .role-pill {
-      background: rgba(13, 148, 136, 0.18);
-      color: var(--txt-acc);
+      background: rgba(167, 139, 250, 0.2);
+      color: #DDD6FE;
       font-size: 11px;
-      padding: 3px 10px;
+      padding: 3px 11px;
       border-radius: 20px;
-      border: 1px solid rgba(13, 148, 136, 0.35);
-      font-weight: 500;
-      letter-spacing: 0.02em
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      font-weight: 600;
+      letter-spacing: 0.04em
     }
 
     .notif-btn {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       position: relative;
       transition: all 0.15s
     }
 
     .notif-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      transform: scale(1.05)
     }
 
     .notif-dot {
@@ -504,55 +573,570 @@
       right: 5px;
       width: 7px;
       height: 7px;
-      background: var(--red);
+      background: #F87171;
       border-radius: 50%;
-      border: 1.5px solid var(--navy)
+      border: 1.5px solid #4C1D95
     }
 
     .topbar-avatar {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: #fff;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(13, 148, 136, 0.3)
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(167, 139, 250, 0.5);
+      transition: transform 0.15s
+    }
+
+    .topbar-avatar:hover {
+      transform: scale(1.08)
     }
 
     .logout-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.65);
       border-radius: var(--radius);
-      padding: 5px 12px;
+      padding: 6px 13px;
       cursor: pointer;
       font-size: 11px;
       font-family: inherit;
       display: flex;
       align-items: center;
       gap: 5px;
-      transition: all 0.15s
+      transition: all 0.15s;
+      font-weight: 500
     }
 
     .logout-btn:hover {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.3);
-      color: var(--txt-err)
+      background: rgba(248, 113, 113, 0.15);
+      border-color: rgba(248, 113, 113, 0.3);
+      color: #FCA5A5
     }
 
     /* ─── SIDEBAR ────────────────────────────────────────── */
     .sidebar {
-      background: linear-gradient(180deg, var(--navy) 0%, var(--s1) 100%);
-      border-right: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 14px 0;
+      background: linear-gradient(180deg, #FEFEFE 0%, #FAF8FF 100%);
+      border-right: 1.5px solid rgba(124, 58, 237, 0.1);
+      padding: 16px 0;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
-      position: relative
+      position: relative;
+      box-shadow: 4px 0 24px rgba(124, 58, 237, 0.06)
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.2), transparent)
+    }
+
+    .nav-section {
+      padding: 10px 18px 5px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(124, 58, 237, 0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px;
+      color: var(--txt-s);
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 500;
+      border-left: 2.5px solid transparent;
+      transition: all 0.15s;
+      position: relative;
+      margin: 1px 0
+    }
+
+    .nav-item:hover {
+      background: var(--purple-xl);
+      color: var(--purple);
+      border-left-color: rgba(124, 58, 237, 0.3)
+    }
+
+    .nav-item.active {
+      background: linear-gradient(90deg, var(--purple-l), var(--purple-xl));
+      color: var(--purple);
+      border-left-color: var(--purple);
+      font-weight: 600;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(124, 58, 237, 0.06)
+    }
+
+    .nav-item i {
+      font-size: 16px;
+      width: 18px;
+      flex-shrink: 0
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: linear-gradient(135deg, #7C3AED, #A78BFA);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35)
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 14px;
+      border-top: 1.5px solid rgba(124, 58, 237, 0.08)
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--purple-l), var(--purple-xl));
+      border: 1px solid rgba(124, 58, 237, 0.12);
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08)
+    }
+
+    .sidebar-user-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--txt-p)
+    }
+
+    .sidebar-user-role {
+      font-size: 10px;
+      color: var(--purple);
+      font-weight: 500;
+      margin-top: 1px
+    }
+
+    /* ─── MAIN ────────────────────────────────────────────── */
+    .main {
+      overflow-y: auto;
+      padding: 24px;
+      background: var(--s0)
+    }
+
+    .page {
+      display: none;
+      animation: fadeUp 0.22s ease
+    }
+
+    .page.active {
+      display: block
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* ─── SECTION HEADER ─────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--txt-p);
+      letter-spacing: -0.4px
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--txt-s);
+      margin-top: 3px
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────────── */
+    .btn {
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(124, 58, 237, 0.15);
+      background: #fff;
+      color: var(--txt-p);
+      cursor: pointer;
+      font-size: 12px;
+      font-family: inherit;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06)
+    }
+
+    .btn:hover {
+      background: var(--purple-xl);
+      border-color: rgba(124, 58, 237, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12)
+    }
+
+    .btn:active {
+      transform: scale(0.97)
+    }
+
+    .btn-acc {
+      background: linear-gradient(135deg, #7C3AED, #A78BFA);
+      color: #fff;
+      border-color: var(--purple-d);
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+      position: relative;
+      overflow: hidden
+    }
+
+    .btn-acc::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent);
+      border-radius: var(--radius)
+    }
+
+    .btn-acc:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+      transform: translateY(-2px)
+    }
+
+    .btn-sm {
+      font-size: 11px;
+      padding: 5px 12px
+    }
+
+    .btn-danger {
+      background: rgba(220, 38, 38, 0.06);
+      border-color: rgba(220, 38, 38, 0.2);
+      color: var(--txt-err)
+    }
+
+    .btn-danger:hover {
+      background: rgba(220, 38, 38, 0.12)
+    }
+
+    /* ─── CARDS — 3D LIFTED ──────────────────────────────── */
+    .card {
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-raise)
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.2), rgba(167, 139, 250, 0.3), rgba(124, 58, 237, 0.2), transparent)
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--txt-p);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    /* ─── KPI CARDS — 3D ─────────────────────────────────── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px
+    }
+
+    .kpi {
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s, box-shadow 0.2s
+    }
+
+    .kpi:hover {
+      transform: translateY(-3px) rotateX(1deg);
+      box-shadow: var(--shadow-raise)
+    }
+
+    .kpi::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--violet), var(--purple-2))
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: var(--txt-s);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600
+    }
+
+    .kpi-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--txt-p);
+      letter-spacing: -0.8px;
+      line-height: 1
+    }
+
+    .kpi-delta {
+      font-size: 11px;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500
+    }
+
+    .kpi-delta.up {
+      color:#059669
+    }
+
+    .kpi-delta.down {
+      color: var(--txt-err)
+    }
+
+    .kpi-delta.neutral {
+      color: var(--txt-s)
+    }
+
+    .kpi-icon {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)
+    }
+
+    .kpi-icon-teal {
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--teal)
+    }
+
+    .kpi-icon-red {
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--txt-err)
+    }
+
+    .kpi-icon-green {
+      background: rgba(5, 150, 105, 0.1);
+      color: var(--txt-ok)
+    }
+
+    .kpi-icon-blue {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--blue)
+    }
+
+    .kpi-icon-amber {
+      background: rgba(217, 119, 6, 0.1);
+      color: var(--txt-warn)
+    }
+
+    .kpi-icon-violet {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--purple)
+    }
+
+    /* ─── GRIDS ──────────────────────────────────────────── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px
+    }
+
+    /* ─── TAGS ───────────────────────────────────────────── */
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap
+    }
+
+    .tag-overdue {
+      background: rgba(220, 38, 38, 0.08);
+      color: #DC2626;
+      border: 1px solid rgba(220, 38, 38, 0.15)
+    }
+
+    .tag-prog {
+      background: rgba(59, 130, 246, 0.08);
+      color: #2563EB;
+      border: 1px solid rgba(59, 130, 246, 0.15)
+    }
+
+    .tag-review {
+      background: rgba(124, 58, 237, 0.08);
+      color: #7C3AED;
+      border: 1px solid rgba(124, 58, 237, 0.15)
+    }
+
+    .tag-done {
+      background: rgba(5, 150, 105, 0.08);
+      color: #059669;
+      border: 1px solid rgba(5, 150, 105, 0.15)
+    }
+
+    .tag-today {
+      background: rgba(217, 119, 6, 0.08);
+      color: #D97706;
+      border: 1px solid rgba(217, 119, 6, 0.15)
+    }
+
+    .tag-ns {
+      background: rgba(107, 114, 128, 0.08);
+      color: #4B5563;
+      border: 1px solid rgba(107, 114, 128, 0.15)
+    }
+
+    /* ─── AVATAR ─────────────────────────────────────────── */
+    .av {
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .av-sm {
+      width: 24px;
+      height: 24px;
+      font-size: 9px
+    }
+
+    .av-md {
+      width: 32px;
+      height: 32px;
+      font-size: 12px
+    }
+
+    /* ─── TABLES ─────────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 13px;
+      color: var(--txt-s);
+      font-weight: 700;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-bottom: 1.5px solid rgba(124, 58, 237, 0.1);
+      white-space: nowrap;
+      background: var(--s2)
+    }
+
+    th:first-child {
+      border-radius: var(--radius) 0 0 0
+    }
+
+    th:last-child {
+      border-radius: 0 var(--radius) 0 0
+    }
+
+    td {
+      padding: 10px 13px;
+      border-bottom: 1px solid rgba(124, 58, 237, 0.06);
+      color: var(--txt-p);
+      vertical-align: middle
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    tbody tr {
+      transition: background 0.1s
+    }
+
+    tbody tr:hover td {
+      background: var(--purple-xl)
+    }
+
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    position: relative
     }
 
     .sidebar::after {
@@ -595,7 +1179,7 @@
 
     .nav-item.active {
       background: rgba(13, 148, 136, 0.12);
-      color: var(--txt-acc);
+      color:var(--purple);
       border-left-color: var(--teal)
     }
 
@@ -653,384 +1237,6 @@
       margin-top: 1px
     }
 
-    /* ─── MAIN CONTENT ───────────────────────────────────── */
-    .main {
-      overflow-y: auto;
-      padding: 22px 24px;
-      background: var(--s0)
-    }
-
-    .page {
-      display: none;
-      animation: fadeUp 0.2s ease
-    }
-
-    .page.active {
-      display: block
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(6px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    /* ─── SECTION HEADER ─────────────────────────────────── */
-    .section-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 18px;
-      gap: 12px
-    }
-
-    .section-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--txt-p);
-      letter-spacing: -0.3px
-    }
-
-    .section-sub {
-      font-size: 12px;
-      color: var(--txt-s);
-      margin-top: 3px
-    }
-
-    /* ─── BUTTONS ────────────────────────────────────────── */
-    .btn {
-      padding: 7px 14px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--txt-p);
-      cursor: pointer;
-      font-size: 12px;
-      font-family: inherit;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.15s
-    }
-
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.15)
-    }
-
-    .btn:active {
-      transform: scale(0.97)
-    }
-
-    .btn-acc {
-      background: linear-gradient(135deg, var(--teal), var(--teal-d));
-      color: #fff;
-      border-color: var(--teal-d);
-      box-shadow: 0 2px 10px rgba(13, 148, 136, 0.35)
-    }
-
-    .btn-acc:hover {
-      filter: brightness(1.1);
-      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.45)
-    }
-
-    .btn-sm {
-      font-size: 11px;
-      padding: 5px 11px
-    }
-
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: rgba(239, 68, 68, 0.25);
-      color: var(--txt-err)
-    }
-
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.2)
-    }
-
-    /* ─── CARDS ──────────────────────────────────────────── */
-    .card {
-      background: linear-gradient(135deg, var(--s2), var(--s3));
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent)
-    }
-
-    .card-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      color: var(--txt-p);
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    /* ─── KPI CARDS ──────────────────────────────────────── */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 20px
-    }
-
-    .kpi {
-      background: linear-gradient(135deg, var(--s2), var(--s3));
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.15s, box-shadow 0.15s
-    }
-
-    .kpi:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5)
-    }
-
-    .kpi::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)
-    }
-
-    .kpi-label {
-      font-size: 11px;
-      color: var(--txt-m);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 500
-    }
-
-    .kpi-val {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--txt-p);
-      letter-spacing: -0.5px;
-      line-height: 1
-    }
-
-    .kpi-delta {
-      font-size: 11px;
-      margin-top: 6px;
-      display: flex;
-      align-items: center;
-      gap: 4px
-    }
-
-    .kpi-delta.up {
-      color: var(--txt-ok)
-    }
-
-    .kpi-delta.down {
-      color: var(--txt-err)
-    }
-
-    .kpi-delta.neutral {
-      color: var(--txt-s)
-    }
-
-    .kpi-icon {
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      opacity: 0.9
-    }
-
-    .kpi-icon-teal {
-      background: rgba(13, 148, 136, 0.18);
-      color: var(--teal)
-    }
-
-    .kpi-icon-red {
-      background: rgba(239, 68, 68, 0.14);
-      color: var(--red)
-    }
-
-    .kpi-icon-green {
-      background: rgba(34, 197, 94, 0.14);
-      color: var(--green)
-    }
-
-    .kpi-icon-blue {
-      background: rgba(59, 130, 246, 0.14);
-      color: var(--blue)
-    }
-
-    .kpi-icon-amber {
-      background: rgba(245, 158, 11, 0.14);
-      color: var(--amber)
-    }
-
-    .kpi-icon-violet {
-      background: rgba(124, 58, 237, 0.14);
-      color: var(--violet)
-    }
-
-    /* ─── GRID LAYOUTS ───────────────────────────────────── */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 16px
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    /* ─── TAGS / BADGES ──────────────────────────────────── */
-    .tag {
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 20px;
-      white-space: nowrap
-    }
-
-    .tag-overdue {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.2)
-    }
-
-    .tag-prog {
-      background: rgba(59, 130, 246, 0.15);
-      color: #93c5fd;
-      border: 1px solid rgba(59, 130, 246, 0.2)
-    }
-
-    .tag-review {
-      background: rgba(124, 58, 237, 0.15);
-      color: #c4b5fd;
-      border: 1px solid rgba(124, 58, 237, 0.2)
-    }
-
-    .tag-done {
-      background: rgba(34, 197, 94, 0.15);
-      color: #86efac;
-      border: 1px solid rgba(34, 197, 94, 0.2)
-    }
-
-    .tag-today {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.2)
-    }
-
-    .tag-ns {
-      background: rgba(100, 116, 139, 0.15);
-      color: #94a3b8;
-      border: 1px solid rgba(100, 116, 139, 0.2)
-    }
-
-    /* ─── AVATAR ─────────────────────────────────────────── */
-    .av {
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0
-    }
-
-    .av-sm {
-      width: 24px;
-      height: 24px;
-      font-size: 9px
-    }
-
-    .av-md {
-      width: 32px;
-      height: 32px;
-      font-size: 12px
-    }
-
-    /* ─── TABLES ─────────────────────────────────────────── */
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: var(--radius)
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px
-    }
-
-    th {
-      text-align: left;
-      padding: 9px 12px;
-      color: var(--txt-m);
-      font-weight: 500;
-      font-size: 10.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      white-space: nowrap
-    }
-
-    td {
-      padding: 9px 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: var(--txt-p);
-      vertical-align: middle
-    }
-
-    tr:last-child td {
-      border-bottom: none
-    }
-
-    tbody tr {
-      transition: background 0.1s
-    }
-
-    tbody tr:hover td {
-      background: rgba(255, 255, 255, 0.03)
-    }
-  </style>
-
-  <style>
     /* ─── TASK TABLE ─────────────────────────────────────── */
     .task-check {
       width: 16px;
@@ -1047,8 +1253,8 @@
     }
 
     .task-check.done {
-      background: var(--teal);
-      border-color: var(--teal);
+      background: var(--purple);
+      border-color: var(--purple);
       color: #fff
     }
 
@@ -1085,28 +1291,29 @@
     /* ─── TABS ───────────────────────────────────────────── */
     .tab-row {
       display: flex;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1.5px solid rgba(124, 58, 237, 0.1);
       margin-bottom: 16px;
       gap: 0
     }
 
     .tab {
-      padding: 8px 16px;
+      padding: 9px 16px;
       font-size: 12px;
       color: var(--txt-s);
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: all 0.15s;
-      font-weight: 500
+      font-weight: 600
     }
 
     .tab.active {
-      color: var(--txt-acc);
-      border-bottom-color: var(--teal)
+      color: var(--purple);
+      border-bottom-color: var(--purple)
     }
 
     .tab:hover:not(.active) {
-      color: var(--txt-p)
+      color: var(--txt-p);
+      background: var(--purple-xl)
     }
 
     /* ─── SEARCH BAR ─────────────────────────────────────── */
@@ -1114,13 +1321,14 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 13px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 14px;
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.12);
       border-radius: var(--radius);
       margin-bottom: 14px;
       color: var(--txt-m);
-      font-size: 12px
+      font-size: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
     }
 
     /* ─── QUICK ADD ──────────────────────────────────────── */
@@ -1134,22 +1342,26 @@
     .qa-btn {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 13px;
+      gap: 7px;
+      padding: 8px 14px;
       border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(124, 58, 237, 0.12);
+      background: #fff;
       cursor: pointer;
       font-size: 12px;
+      font-weight: 600;
       color: var(--txt-s);
       font-family: inherit;
-      transition: all 0.15s
+      transition: all 0.18s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
     }
 
     .qa-btn:hover {
-      border-color: rgba(13, 148, 136, 0.4);
-      color: var(--txt-acc);
-      background: rgba(13, 148, 136, 0.08)
+      border-color: var(--purple);
+      color: var(--purple);
+      background: var(--purple-xl);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15)
     }
 
     /* ─── ATTENDANCE ─────────────────────────────────────── */
@@ -1161,11 +1373,12 @@
     }
 
     .att-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
       border-radius: var(--radius);
       padding: 10px 6px;
       text-align: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
       cursor: pointer;
       transition: all 0.15s
     }
@@ -1176,9 +1389,9 @@
     }
 
     .att-card.selected {
-      border-color: var(--teal);
-      background: rgba(13, 148, 136, 0.15);
-      box-shadow: 0 0 12px rgba(13, 148, 136, 0.2)
+      border-color: var(--purple);
+      background: var(--purple-l);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12)
     }
 
     .att-dot {
@@ -1206,28 +1419,33 @@
     }
 
     .pip-p {
-      background: rgba(34, 197, 94, 0.18);
-      color: #4ade80
+      background: rgba(5, 150, 105, 0.1);
+      color: #059669;
+      font-weight: 700
     }
 
     .pip-w {
-      background: rgba(59, 130, 246, 0.18);
-      color: #93c5fd
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563EB;
+      font-weight: 700
     }
 
     .pip-l {
-      background: rgba(239, 68, 68, 0.18);
-      color: #f87171
+      background: rgba(220, 38, 38, 0.1);
+      color: #DC2626;
+      font-weight: 700
     }
 
     .pip-h {
-      background: rgba(245, 158, 11, 0.18);
-      color: #fcd34d
+      background: rgba(217, 119, 6, 0.1);
+      color: #D97706;
+      font-weight: 700
     }
 
     .pip-a {
-      background: rgba(100, 116, 139, 0.18);
-      color: #94a3b8
+      background: rgba(107, 114, 128, 0.1);
+      color: #6B7280;
+      font-weight: 700
     }
 
     /* ─── CALENDAR ───────────────────────────────────────── */
@@ -1248,23 +1466,25 @@
     }
 
     .cal-day {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.08);
       border-radius: var(--radius);
       padding: 6px;
       min-height: 58px;
       cursor: pointer;
-      transition: all 0.15s
+      transition: all 0.15s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04)
     }
 
     .cal-day:hover {
-      border-color: rgba(13, 148, 136, 0.35)
+      border-color: var(--purple);
+      background: var(--purple-xl)
     }
 
     .cal-day.today {
-      border-color: var(--teal);
-      background: rgba(13, 148, 136, 0.1);
-      box-shadow: 0 0 10px rgba(13, 148, 136, 0.15)
+      border-color: var(--purple);
+      background: var(--purple-l);
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15)
     }
 
     .cal-day.empty {
@@ -1315,7 +1535,7 @@
       align-items: center;
       gap: 12px;
       padding: 11px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+      border-bottom: 1px solid rgba(124, 58, 237, 0.08)
     }
 
     .emp-row:last-child {
@@ -1340,9 +1560,9 @@
     }
 
     .status-active {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.2);
+      background: rgba(5, 150, 105, 0.08);
+      color: #059669;
+      border: 1px solid rgba(5, 150, 105, 0.15);
       font-size: 10px;
       font-weight: 600;
       padding: 2px 9px;
@@ -1350,9 +1570,9 @@
     }
 
     .status-notice {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.2);
+      background: rgba(217, 119, 6, 0.08);
+      color: #D97706;
+      border: 1px solid rgba(217, 119, 6, 0.15);
       font-size: 10px;
       font-weight: 600;
       padding: 2px 9px;
@@ -1360,9 +1580,9 @@
     }
 
     .status-resigned {
-      background: rgba(100, 116, 139, 0.1);
-      color: var(--txt-s);
-      border: 1px solid rgba(100, 116, 139, 0.2);
+      background: rgba(107, 114, 128, 0.06);
+      color: #6B7280;
+      border: 1px solid rgba(107, 114, 128, 0.15);
       font-size: 10px;
       font-weight: 600;
       padding: 2px 9px;
@@ -1371,8 +1591,8 @@
 
     /* ─── REPORTS ────────────────────────────────────────── */
     .report-kpi {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
       border-radius: var(--radius-lg);
       padding: 14px;
       box-shadow: var(--shadow-card)
@@ -1408,19 +1628,20 @@
       align-items: flex-start;
       gap: 11px;
       padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
       border-radius: var(--radius-lg);
       margin-bottom: 8px;
-      transition: all 0.12s
+      transition: all 0.12s;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.05)
     }
 
     .notif-item:hover {
-      background: rgba(255, 255, 255, 0.05)
+      background: var(--purple-xl)
     }
 
     .notif-unread {
-      border-left: 2px solid var(--teal)
+      border-left: 3px solid var(--purple)
     }
 
     .notif-icon-wrap {
@@ -1455,7 +1676,7 @@
 
     /* ─── PERMISSION TABLE ───────────────────────────────── */
     .check-yes {
-      color: var(--teal);
+      color: var(--purple);
       font-size: 15px
     }
 
@@ -1482,8 +1703,8 @@
     /* ─── ROLLOUT PHASES ─────────────────────────────────── */
     .phase-box {
       flex: 1;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
       border-radius: var(--radius-lg);
       padding: 18px;
       box-shadow: var(--shadow-card);
@@ -1526,7 +1747,7 @@
     }
 
     .prog-wrap {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(124, 58, 237, 0.1);
       border-radius: 4px;
       height: 5px;
       margin-top: 10px;
@@ -1541,7 +1762,7 @@
 
     /* ─── WORKLOAD BAR ───────────────────────────────────── */
     .wl-bar-wrap {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(124, 58, 237, 0.1);
       border-radius: 4px;
       height: 5px;
       overflow: hidden;
@@ -1560,14 +1781,15 @@
       align-items: center;
       gap: 7px;
       padding: 7px 13px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #fff;
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
       border-radius: var(--radius);
-      transition: all 0.12s
+      transition: all 0.12s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
     }
 
     .snap-pill:hover {
-      background: rgba(255, 255, 255, 0.07)
+      background: var(--purple-xl)
     }
 
     /* ─── MISC ───────────────────────────────────────────── */
@@ -1608,7 +1830,7 @@
     .mono {
       font-family: 'Courier New', monospace;
       font-size: 11px;
-      background: rgba(255, 255, 255, 0.05);
+      background:var(--purple-l);
       padding: 1px 6px;
       border-radius: 4px;
       color: var(--txt-acc)
@@ -1658,9 +1880,7 @@
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.08em;
-      background: rgba(34, 197, 94, 0.15);
-      color: var(--txt-ok);
-      border: 1px solid rgba(34, 197, 94, 0.25);
+      background:rgba(5,150,105,0.1);color:#059669;border:1px solid rgba(5,150,105,0.2);
       padding: 2px 7px;
       border-radius: 20px;
       margin-left: 8px;
@@ -1683,9 +1903,7 @@
       font-size: 13px;
       font-weight: 600;
       font-family: 'Courier New', monospace;
-      color: var(--txt-acc);
-      background: rgba(13, 148, 136, 0.1);
-      border: 1px solid rgba(13, 148, 136, 0.2);
+      color:var(--purple);background:var(--purple-l);border:1px solid rgba(124,58,237,0.2);
       padding: 5px 12px;
       border-radius: var(--radius);
       letter-spacing: 0.06em;
@@ -1695,7 +1913,7 @@
 
     .live-badge {
       animation: liveFade 1.5s ease-in-out infinite;
-      background: var(--green) !important;
+      background:var(--purple) !important;
       font-size: 8px !important;
       padding: 2px 5px !important;
     }
@@ -1708,14 +1926,7 @@
     }
 
     .ops-kpi {
-      background: linear-gradient(135deg, var(--s2), var(--s3));
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-lg);
-      padding: 14px 16px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform .15s;
+      background:#fff;border:1.5px solid rgba(124,58,237,0.1);border-radius:var(--radius-lg);padding:14px 16px;position:relative;overflow:hidden;box-shadow:var(--shadow-card);transition:transform .15s;
     }
 
     .ops-kpi:hover {
@@ -1817,10 +2028,7 @@
       color: var(--txt-ok);
       min-width: 64px;
       text-align: right;
-      background: rgba(34, 197, 94, 0.08);
-      padding: 3px 8px;
-      border-radius: 6px;
-      border: 1px solid rgba(34, 197, 94, 0.2);
+      background:rgba(5,150,105,0.08);padding:3px 8px;border-radius:6px;border:1px solid rgba(5,150,105,0.15);
     }
 
     .timer-info {
@@ -1873,14 +2081,11 @@
       padding: 9px 10px;
       border-radius: 8px;
       margin-bottom: 4px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background:#fff;border:1px solid rgba(124,58,237,0.08);
       transition: all .15s;
     }
 
-    .stream-item:hover {
-      background: rgba(255, 255, 255, 0.04)
-    }
+    .stream-item:hover { background:var(--purple-xl) }
 
     .stream-item.new-item {
       animation: streamSlide .35s ease
@@ -2750,7 +2955,7 @@
         employee: [['ti-plus', 'Task'], ['ti-note', 'Note'], ['ti-clock', 'Time']],
       };
       document.getElementById('quickAdd').innerHTML = opts[currentRole].map(([ic, lbl]) =>
-        `<div class="qa-btn"><i class="ti ${ic}" aria-hidden="true"></i> ${lbl}</div>`
+        `<div class="qa-btn" onclick="openQA('${lbl}')"><i class="ti ${ic}" aria-hidden="true"></i> ${lbl}</div>`
       ).join('');
     }
 
@@ -2998,7 +3203,7 @@
     document.querySelectorAll('.nav-item[tabindex="0"]').forEach(el => {
       el.addEventListener('keydown', k => { if (k.key === 'Enter' || k.key === ' ') el.click(); });
     });
-    });
+
 
     /* ─── CSS: TOAST ANIMATION ─────────────────────────── */
     const styleEl = document.createElement('style');
@@ -3232,6 +3437,219 @@
     function clearStream() { streamEvents = []; renderActivityStream(); }
 
   </script>
+  <!-- ═══════════════ QUICK-ADD MODALS ════════════════ -->
+  <div id="qaOverlay" onclick="closeQA(event)" style="display:none;position:fixed;inset:0;z-index:2000;
+    background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center">
+  </div>
+
+  <!-- TASK modal -->
+  <div id="qa-modal-Task" class="qa-modal" style="display:none">
+    <div class="qa-modal-head">
+      <div class="qa-modal-icon" style="background:rgba(13,148,136,.15)"><i class="ti ti-plus"
+          style="color:var(--teal)"></i></div>
+      <div>
+        <div class="qa-modal-title">Add task</div>
+        <div class="qa-modal-sub">Creates a new task and adds it to the table</div>
+      </div>
+      <button class="qa-close" onclick="closeQA()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qa-body">
+      <div class="qa-field"><label>Task title <span class="qa-req">*</span></label><input id="qa-task-title"
+          placeholder="e.g. Update landing page copy" /></div>
+      <div class="qa-row">
+        <div class="qa-field"><label>Project</label>
+          <select id="qa-task-project">
+            <option>Web Revamp</option>
+            <option>Marketing</option>
+            <option>Sales</option>
+            <option>Infrastructure</option>
+            <option>HR</option>
+            <option>Finance</option>
+          </select>
+        </div>
+        <div class="qa-field"><label>Priority</label>
+          <select id="qa-task-priority">
+            <option>High</option>
+            <option selected>Medium</option>
+            <option>Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-field"><label>Assign to</label>
+          <select id="qa-task-assignee">
+            <option>Tarun Mehta</option>
+            <option>Shiladri Das</option>
+            <option>Gopal Sen</option>
+            <option>Priya Roy</option>
+            <option>Rahul Bose</option>
+            <option>Neha Gupta</option>
+          </select>
+        </div>
+        <div class="qa-field"><label>Due date <span class="qa-req">*</span></label><input id="qa-task-due"
+            type="date" /></div>
+      </div>
+      <div class="qa-field"><label>Description</label><textarea id="qa-task-desc" placeholder="Optional details…"
+          rows="3"></textarea></div>
+    </div>
+    <div class="qa-footer">
+      <button class="btn" onclick="closeQA()">Cancel</button>
+      <button class="btn btn-acc" onclick="submitQA('Task')"><i class="ti ti-plus"></i> Add task</button>
+    </div>
+  </div>
+
+  <!-- EVENT modal -->
+  <div id="qa-modal-Event" class="qa-modal" style="display:none">
+    <div class="qa-modal-head">
+      <div class="qa-modal-icon" style="background:rgba(59,130,246,.15)"><i class="ti ti-calendar"
+          style="color:var(--blue)"></i></div>
+      <div>
+        <div class="qa-modal-title">Add event</div>
+        <div class="qa-modal-sub">Adds an event to the calendar</div>
+      </div>
+      <button class="qa-close" onclick="closeQA()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qa-body">
+      <div class="qa-field"><label>Event title <span class="qa-req">*</span></label><input id="qa-event-title"
+          placeholder="e.g. Team standup" /></div>
+      <div class="qa-row">
+        <div class="qa-field"><label>Date <span class="qa-req">*</span></label><input id="qa-event-date" type="date" />
+        </div>
+        <div class="qa-field"><label>Time</label><input id="qa-event-time" type="time" value="10:00" /></div>
+      </div>
+      <div class="qa-field"><label>Attendees</label>
+        <select id="qa-event-attendees" multiple style="height:80px">
+          <option selected>Tarun Mehta</option>
+          <option>Shiladri Das</option>
+          <option>Gopal Sen</option>
+          <option>Priya Roy</option>
+          <option>Rahul Bose</option>
+          <option>Neha Gupta</option>
+        </select>
+        <div style="font-size:10px;color:var(--txt-m);margin-top:4px">Hold Ctrl/Cmd to select multiple</div>
+      </div>
+      <div class="qa-field"><label>Notes</label><textarea id="qa-event-notes" placeholder="Agenda or notes…"
+          rows="2"></textarea></div>
+    </div>
+    <div class="qa-footer">
+      <button class="btn" onclick="closeQA()">Cancel</button>
+      <button class="btn btn-acc" onclick="submitQA('Event')"><i class="ti ti-calendar"></i> Add event</button>
+    </div>
+  </div>
+
+  <!-- NOTE modal -->
+  <div id="qa-modal-Note" class="qa-modal" style="display:none">
+    <div class="qa-modal-head">
+      <div class="qa-modal-icon" style="background:rgba(124,58,237,.15)"><i class="ti ti-note"
+          style="color:var(--violet)"></i></div>
+      <div>
+        <div class="qa-modal-title">Add note</div>
+        <div class="qa-modal-sub">Saves a quick note to the team feed</div>
+      </div>
+      <button class="qa-close" onclick="closeQA()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qa-body">
+      <div class="qa-field"><label>Title</label><input id="qa-note-title"
+          placeholder="e.g. Design feedback from client" /></div>
+      <div class="qa-field"><label>Note <span class="qa-req">*</span></label><textarea id="qa-note-body"
+          placeholder="Write your note here…" rows="5"></textarea></div>
+      <div class="qa-field"><label>Tag</label>
+        <select id="qa-note-tag">
+          <option>General</option>
+          <option>Design</option>
+          <option>Dev</option>
+          <option>Marketing</option>
+          <option>HR</option>
+          <option>Finance</option>
+        </select>
+      </div>
+    </div>
+    <div class="qa-footer">
+      <button class="btn" onclick="closeQA()">Cancel</button>
+      <button class="btn btn-acc" onclick="submitQA('Note')"><i class="ti ti-note"></i> Save note</button>
+    </div>
+  </div>
+
+  <!-- TIME modal -->
+  <div id="qa-modal-Time" class="qa-modal" style="display:none">
+    <div class="qa-modal-head">
+      <div class="qa-modal-icon" style="background:rgba(34,197,94,.15)"><i class="ti ti-clock"
+          style="color:var(--green)"></i></div>
+      <div>
+        <div class="qa-modal-title">Log time</div>
+        <div class="qa-modal-sub">Manually log hours against a task</div>
+      </div>
+      <button class="qa-close" onclick="closeQA()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qa-body">
+      <div class="qa-field"><label>Task <span class="qa-req">*</span></label>
+        <select id="qa-time-task">
+          <option>Homepage redesign</option>
+          <option>Q3 social media calendar</option>
+          <option>Client proposal — Nexus Corp</option>
+          <option>Server migration plan</option>
+          <option>Design system tokens</option>
+          <option>Monthly analytics report</option>
+          <option>Employee handbook update</option>
+        </select>
+      </div>
+      <div class="qa-row">
+        <div class="qa-field"><label>Hours <span class="qa-req">*</span></label><input id="qa-time-hours" type="number"
+            min="0" max="24" placeholder="0" value="1" /></div>
+        <div class="qa-field"><label>Minutes</label><input id="qa-time-mins" type="number" min="0" max="59"
+            placeholder="0" value="0" /></div>
+      </div>
+      <div class="qa-field"><label>Date</label><input id="qa-time-date" type="date" /></div>
+      <div class="qa-field"><label>Note</label><textarea id="qa-time-note" placeholder="What did you work on?"
+          rows="2"></textarea></div>
+    </div>
+    <div class="qa-footer">
+      <button class="btn" onclick="closeQA()">Cancel</button>
+      <button class="btn btn-acc" onclick="submitQA('Time')"><i class="ti ti-clock"></i> Log time</button>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENT modal -->
+  <div id="qa-modal-Announcement" class="qa-modal" style="display:none">
+    <div class="qa-modal-head">
+      <div class="qa-modal-icon" style="background:rgba(245,158,11,.15)"><i class="ti ti-speakerphone"
+          style="color:var(--amber)"></i></div>
+      <div>
+        <div class="qa-modal-title">Post announcement</div>
+        <div class="qa-modal-sub">Sends a notification to the selected audience</div>
+      </div>
+      <button class="qa-close" onclick="closeQA()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qa-body">
+      <div class="qa-field"><label>Headline <span class="qa-req">*</span></label><input id="qa-ann-title"
+          placeholder="e.g. Office closed on Friday" /></div>
+      <div class="qa-field"><label>Message <span class="qa-req">*</span></label><textarea id="qa-ann-body"
+          placeholder="Full announcement text…" rows="4"></textarea></div>
+      <div class="qa-row">
+        <div class="qa-field"><label>Audience</label>
+          <select id="qa-ann-audience">
+            <option>All employees</option>
+            <option>Sales team</option>
+            <option>Tech team</option>
+            <option>Marketing</option>
+            <option>HR only</option>
+          </select>
+        </div>
+        <div class="qa-field"><label>Priority</label>
+          <select id="qa-ann-priority">
+            <option>Normal</option>
+            <option>Urgent</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="qa-footer">
+      <button class="btn" onclick="closeQA()">Cancel</button>
+      <button class="btn btn-acc" onclick="submitQA('Announcement')"><i class="ti ti-speakerphone"></i> Post
+        announcement</button>
+    </div>
+  </div>
+
   </body>
 
 </html>
